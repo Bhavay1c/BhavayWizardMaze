@@ -13,6 +13,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.ImageIcon;
@@ -25,14 +26,22 @@ import javax.swing.JPanel;
 
 public class WizardMazeUI {
 	
-	
+	private Color menuColor = new Color(50, 200, 77); // Color for menu items
+	private Font menuFont = new Font("Segoe UI", Font.ITALIC, 24); // Font for menu items
+    private ImageIcon backgroundImage = new ImageIcon("Images/BG.jpg");
+    private ImageIcon logoImage = new ImageIcon("Images/LOGO.png");
+
 	
 	// method for the create and show gui 
 	 public void createAndShowGUI() {
+		 
+		 	// main jFrame
 	        // Create the JFrame and set its properties
 	        JFrame frame = new JFrame("Wizard's Maze");
+	        
+	        
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setSize(1350, 840); // Set the desired size for the window
+	        frame.setSize(1250, 840); // Set the desired size for the window
 
 	        // Create the main panel using BorderLayout
 	        JPanel mainPanel = new JPanel(new BorderLayout());
@@ -46,33 +55,28 @@ public class WizardMazeUI {
 
 	       
 	        // Create the background panel with the background image
-	        JLabel backgroundPanel = new JLabel();
-	        ImageIcon backgroundImage = new ImageIcon("Images/BG.jpg");
-	        backgroundPanel.setIcon(backgroundImage);
+	        JLabel backgroundILabel = new JLabel();
+	        backgroundILabel.setIcon(backgroundImage);
 
-	        backgroundPanel.setLayout(new BorderLayout()); // Use BorderLayout for easy overlaying
+	        backgroundILabel.setLayout(new BorderLayout()); // Use BorderLayout for easy overlaying
 
 	        // Add the maze panel to the left side of the main panel
 	        
 	       
-	        backgroundPanel.add(mazePanel, BorderLayout.WEST); // Place maze panel on the left
+	        backgroundILabel.add(mazePanel, BorderLayout.WEST); // Place maze panel on the left
 
 	        // Create the newPanel to cover the entire background panel
 	        JPanel newPanel = new JPanel(new GridBagLayout());
 	        newPanel.setOpaque(false); // Make newPanel transparent so the background is visible
 
-	        // Add components to newPanel (which overlays the background)
-//	        addComponentsToPane(newPanel);
-
-	        // Add newPanel on top of the background panel
-	        backgroundPanel.add(newPanel, BorderLayout.EAST);
+	       
 
 	        // Add the background panel to the center of the main panel
-	        mainPanel.add(backgroundPanel, BorderLayout.CENTER);
+	        mainPanel.add(backgroundILabel, BorderLayout.CENTER);
 
 	        // Add the menu bar to the top of the main panel
 	        JMenuBar menuBar = createMenuBar();
-	        backgroundPanel.add(menuBar, BorderLayout.NORTH);
+	        backgroundILabel.add(menuBar, BorderLayout.NORTH);
 
 	        // Set the main panel as the content pane of the frame
 	        frame.setContentPane(mainPanel);
@@ -80,33 +84,130 @@ public class WizardMazeUI {
 	        // Make the frame visible
 	        frame.setVisible(true);
 	    }
+//    public void createAndShowGUI() {
+//        // Main JFrame
+//        JFrame frame = new JFrame("Wizard's Maze");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(1250, 840); // Set the desired size for the window
+//
+//        // Create the main panel using BorderLayout
+//        JPanel mainPanel = new JPanel(new BorderLayout());
+//
+//        // Create the background label with the background image
+//        JLabel backgroundILabel = new JLabel();
+//        backgroundILabel.setIcon(backgroundImage);
+//        backgroundILabel.setLayout(new GridBagLayout()); // Use GridBagLayout for the background label
+//
+//        // Create the maze tiles panel for the left side
+//        JPanel mazePanel = new JPanel();
+//        mazePanel.setOpaque(false);
+//        MazeStructure mazeStructure = new MazeStructure();
+//        mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
+//
+//     // Add the menu bar to the top of the main panel
+//        JMenuBar menuBar = createMenuBar();
+//        GridBagConstraints gbcMenuBar = new GridBagConstraints();
+//        gbcMenuBar.gridx = 0; // Column 0
+//        gbcMenuBar.gridy = 0; // Row 0
+////        gbcMenuBar.anchor = GridBagConstraints.WEST; // Anchor to the north
+//
+//        gbcMenuBar.fill = GridBagConstraints.VERTICAL; // Fill vertically
+//        gbcMenuBar.weightx = 0.5; // Weight for width
+//        gbcMenuBar.weighty = 1.0; // Weight for height
+//        backgroundILabel.add(menuBar, gbcMenuBar);
+//
+//        
+//        // Jlabel for the Logo image 
+//        JLabel logo = new JLabel();
+//        
+//        logo.setIcon(logoImage);
+//        GridBagConstraints gbcLogo = new GridBagConstraints();
+//        gbcLogo.gridx = 1; // Column 0
+//        gbcLogo.gridy = 1; // Row 0
+//        gbcLogo.fill = GridBagConstraints.VERTICAL; // Fill vertically
+//        gbcLogo.weightx = 0.5; // Weight for width
+//        gbcLogo.weighty = 1.0; // Weight for height
+//        backgroundILabel.add(logo, gbcLogo);
+//        
+//        
+//        
+//        
+//        
+//        // Create constraints for the maze panel
+//        GridBagConstraints gbcMazePanel = new GridBagConstraints();
+//        gbcMazePanel.gridx = 0; // Column 0
+//        gbcMazePanel.gridy = 2; // Row 0
+//        gbcMazePanel.fill = GridBagConstraints.VERTICAL; // Fill vertically
+//        gbcMazePanel.weightx = 0.5; // Weight for width
+//        gbcMazePanel.weighty = 1.0; // Weight for height
+//
+//        // Add the maze panel to the background label
+//        backgroundILabel.add(mazePanel, gbcMazePanel); // Place maze panel on the left
+//
+//        // Create the newPanel to overlay other components
+//        JPanel newPanel = new JPanel(new GridBagLayout());
+//        newPanel.setOpaque(false); // Make newPanel transparent so the background is visible
+//
+//        // Example: Add components to the newPanel (add your components here)
+//        // addComponentsToOverlay(newPanel); // Call a method to add your components
+//
+//        // Create constraints for the overlay panel
+//        
+//        mainPanel.add(backgroundILabel, BorderLayout.NORTH);
+//
+//       
+//        frame.getContentPane().add(mainPanel,BorderLayout.NORTH);
+//        // Add the background label to the center of the main panel
+//
+//        
+//        // Set the main panel as the content pane of the frame
+////        frame.setContentPane(mainPanel);
+//
+//        // Make the frame visible
+//        frame.setVisible(true);
+//    }
+
 	 
-	 
-	 
+    
+//     menuBar.setBackground(new Color(63, 53, 63, 90)); // Set the background color with transparency
+
 	 // method for creating menu bar 
 	 public JMenuBar createMenuBar() {
 	        JMenuBar menuBar = new JMenuBar();
-//	        menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
-	        menuBar.setBackground(new Color(63, 53, 63, 90)); // Set the background color with transparency
+	        menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
 	        menuBar.setBorder(null);
+
 	        // File Menu
 	        JMenu fileMenu = new JMenu("File");
-	        fileMenu.setForeground(new Color(50,200,77) ); // Set the text color to red
-	        fileMenu.setFont(new Font("Serif", Font.PLAIN, 24));
+	        fileMenu.setForeground(menuColor);
+	        fileMenu.setFont(menuFont); // Use the menuFont variable
 	        
 	        JMenuItem saveItem = new JMenuItem("Save");
+	        saveItem.setFont(menuFont); // Set font for save item
+	        saveItem.setForeground(menuColor); // Set color for save item
 	        JMenuItem reloadItem = new JMenuItem("Reload");
+	        reloadItem.setFont(menuFont); // Set font for reload item
+	        reloadItem.setForeground(menuColor); // Set color for reload item
 	        fileMenu.add(saveItem);
 	        fileMenu.add(reloadItem);
 
 	        // Game Menu
 	        JMenu gameMenu = new JMenu("Game");
-	        gameMenu.setForeground(new Color(50,200,77) ); // Set the text color to red
+	        gameMenu.setForeground(menuColor); // Use the same color variable
+	        gameMenu.setFont(menuFont); // Use the menuFont variable
 
 	        JMenuItem newGameItem = new JMenuItem("New Game");
+	        newGameItem.setFont(menuFont); // Set font for new game item
+	        newGameItem.setForeground(menuColor); // Set color for new game item
 	        JMenuItem changeNameItem = new JMenuItem("Change Name");
+	        changeNameItem.setFont(menuFont); // Set font for change name item
+	        changeNameItem.setForeground(menuColor); // Set color for change name item
 	        JMenuItem invitePlayerItem = new JMenuItem("Invite Player");
+	        invitePlayerItem.setFont(menuFont); // Set font for invite player item
+	        invitePlayerItem.setForeground(menuColor); // Set color for invite player item
 	        JMenuItem historyItem = new JMenuItem("History");
+	        historyItem.setFont(menuFont); // Set font for history item
+	        historyItem.setForeground(menuColor); // Set color for history item
 	        gameMenu.add(newGameItem);
 	        gameMenu.add(changeNameItem);
 	        gameMenu.add(invitePlayerItem);
@@ -114,29 +215,46 @@ public class WizardMazeUI {
 
 	        // Language Menu
 	        JMenu languageMenu = new JMenu("Language");
-	        languageMenu.setForeground(new Color(50,200,77) ); // Set the text color to red
+	        languageMenu.setForeground(menuColor); // Use the same color variable
+	        languageMenu.setFont(menuFont); // Use the menuFont variable
 
 	        JMenuItem englishItem = new JMenuItem("English");
+	        englishItem.setFont(menuFont); // Set font for English item
+	        englishItem.setForeground(menuColor); // Set color for English item
 	        JMenuItem chineseItem = new JMenuItem("Chinese");
+	        chineseItem.setFont(menuFont); // Set font for Chinese item
+	        chineseItem.setForeground(menuColor); // Set color for Chinese item
 	        languageMenu.add(englishItem);
 	        languageMenu.add(chineseItem);
 
 	        // Help Menu
 	        JMenu helpMenu = new JMenu("Help");
-	        helpMenu.setForeground(new Color(50,200,77) ); // Set the text color to red
+	        helpMenu.setForeground(menuColor); // Use the same color variable
+	        helpMenu.setFont(menuFont); // Use the menuFont variable
 
 	        JMenuItem aboutItem = new JMenuItem("About (Information about Developers)");
+	        aboutItem.setFont(menuFont); // Set font for about item
+	        aboutItem.setForeground(menuColor); // Set color for about item
 	        JMenuItem gameRulesItem = new JMenuItem("Game Rules");
+	        gameRulesItem.setFont(menuFont); // Set font for game rules item
+	        gameRulesItem.setForeground(menuColor); // Set color for game rules item
 	        helpMenu.add(aboutItem);
 	        helpMenu.add(gameRulesItem);
 
 	        // Network Menu
 	        JMenu networkMenu = new JMenu("Network");
-	        networkMenu.setForeground(new Color(50,200,77) ); // Set the text color to red
+	        networkMenu.setForeground(menuColor); // Use the same color variable
+	        networkMenu.setFont(menuFont); // Use the menuFont variable
 
 	        JMenuItem hostItem = new JMenuItem("Host");
+	        hostItem.setFont(menuFont); // Set font for host item
+	        hostItem.setForeground(menuColor); // Set color for host item
 	        JMenuItem connectItem = new JMenuItem("Connect");
+	        connectItem.setFont(menuFont); // Set font for connect item
+	        connectItem.setForeground(menuColor); // Set color for connect item
 	        JMenuItem disconnectItem = new JMenuItem("Disconnect");
+	        disconnectItem.setFont(menuFont); // Set font for disconnect item
+	        disconnectItem.setForeground(menuColor); // Set color for disconnect item
 	        networkMenu.add(hostItem);
 	        networkMenu.add(connectItem);
 	        networkMenu.add(disconnectItem);
@@ -150,6 +268,5 @@ public class WizardMazeUI {
 
 	        return menuBar;
 	    }
+	}
 
-
-}
