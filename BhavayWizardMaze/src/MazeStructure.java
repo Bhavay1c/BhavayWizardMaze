@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.*;
 
 public class MazeStructure {
@@ -12,7 +15,9 @@ public class MazeStructure {
     String arrowWest = "Images/AW.png";
     String arrowSouth = "Images/AS.png";
     String arrowEast = "Images/AE.png";
-
+    String[] components = new String[21];
+    Set<Integer> uniqueNumbers = new HashSet<>();
+    
     public MazeStructure() {
         mazeTiles = new String[11][3];
 
@@ -28,6 +33,14 @@ public class MazeStructure {
         mazeTiles[8] = new String[]{"NW", "Images/NW.png", "4"};          // NW
         mazeTiles[9] = new String[]{"SE", "Images/SE.png", "4"};          // SE
         mazeTiles[10] = new String[]{"SW", "Images/SW.png", "4"};         // SW
+        
+        
+        for (int i = 1; i <= 21; i++) {
+            components[i - 1] = "Images/green_" + i + ".png"; // Green component images
+            
+        }
+        components[20] = "Images/green_" + 25 + ".png"; // Green component images
+
     }
 
     // Method to display the maze tile information in the specified container
@@ -37,10 +50,10 @@ public class MazeStructure {
 
         // Add Arrow Labels for Shifting Maze
         addArrowLabels(pane, c);
-
+        
         // Add maze tiles
         for (int i = 1; i < 8; i++) {
-            for (int y = 1; y < 8; y++) {
+            for (int j = 1; j < 8; j++) {
                 int randomNumber = (int) (Math.random() * 11); // Generates a number between 0 and 10
                 String stringNumber = mazeTiles[randomNumber][2]; // Get the quantity
                 int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining 
@@ -55,9 +68,9 @@ public class MazeStructure {
                     tileLabel.setBorder(BorderFactory.createEmptyBorder()); // Remove borders
 
                     c.gridx = i;
-                    c.gridy = y;
+                    c.gridy = j;
                     c.fill = GridBagConstraints.BOTH;
-                    mazePattern[i][y] = tileLabel;
+                    mazePattern[i][j] = tileLabel;
 
                     pane.add(tileLabel, c);
 
@@ -65,12 +78,23 @@ public class MazeStructure {
                     tNumber--;
                     mazeTiles[randomNumber][2] = Integer.toString(tNumber); // Update the quantity
 
-                    // Optionally add random components (like treasures)
-                    if (Math.random() < 0.2) { // 20% chance to place a random component
-                        addRandomComponent(tileLabel);
+                    if( (i>1&&j>1) && (i<7&&j<7) ) { // place random component or wizard
+                    	if((i==3 || i ==5) && (j==3 || j ==5)) {
+                    		
+                    		// place wizard
+                    	
+                    		
+                    	}
+                    	else {
+                    		
+                    		addRandomComponent(tileLabel);
+                    	}
+                    	
                     }
+                    
+                    
                 } else {
-                    y--; // If no tile can be placed, decrement y to try again
+                    j--; // If no tile can be placed, decrement y to try again
                 }
             }
         }
@@ -78,84 +102,89 @@ public class MazeStructure {
 
     // Method to add arrow labels around the maze
     private void addArrowLabels(Container pane, GridBagConstraints c) {
-        JLabel northLabel1 = createArrowLabel(arrowNorth);
-        JLabel northLabel2 = createArrowLabel(arrowNorth);
-        JLabel northLabel3 = createArrowLabel(arrowNorth);
+        // Create one ImageIcon for each direction
+        ImageIcon northIcon = new ImageIcon(arrowNorth);
+        ImageIcon southIcon = new ImageIcon(arrowSouth);
+        ImageIcon westIcon = new ImageIcon(arrowWest);
+        ImageIcon eastIcon = new ImageIcon(arrowEast);
 
-        JLabel southLabel1 = createArrowLabel(arrowSouth);
-        JLabel southLabel2 = createArrowLabel(arrowSouth);
-        JLabel southLabel3 = createArrowLabel(arrowSouth);
+        // Scale the icons
+        Image scaledNorth = northIcon.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+        Image scaledSouth = southIcon.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
+        Image scaledWest = westIcon.getImage().getScaledInstance(25, 80, Image.SCALE_SMOOTH);
+        Image scaledEast = eastIcon.getImage().getScaledInstance(25, 80, Image.SCALE_SMOOTH);
 
-        JLabel westLabel1 = createArrowLabel(arrowWest);
-        JLabel westLabel2 = createArrowLabel(arrowWest);
-        JLabel westLabel3 = createArrowLabel(arrowWest);
-
-        JLabel eastLabel1 = createArrowLabel(arrowEast);
-        JLabel eastLabel2 = createArrowLabel(arrowEast);
-        JLabel eastLabel3 = createArrowLabel(arrowEast);
-
-        // Add North labels (above the maze)
+        // Add North labels (below the maze)
         c.gridx = 2;
         c.gridy = 0;
-        pane.add(southLabel1, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
         c.gridx = 4;
-        pane.add(southLabel2, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
         c.gridx = 6;
-        pane.add(southLabel3, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
 
-        // Add South labels (below the maze)
+        // Add South labels (above the maze)
         c.gridx = 2;
         c.gridy = 8;
-        pane.add(northLabel1, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
         c.gridx = 4;
-        pane.add(northLabel2, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
         c.gridx = 6;
-        pane.add(northLabel3, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
 
         // Add West labels (to the left of the maze)
         c.gridx = 0;
         c.gridy = 2;
-        pane.add(eastLabel1, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
         c.gridy = 4;
-        pane.add(eastLabel2, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledEast)),c);
         c.gridy = 6;
-        pane.add(eastLabel3, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
 
         // Add East labels (to the right of the maze)
         c.gridx = 8;
         c.gridy = 2;
-        pane.add(westLabel1, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
         c.gridy = 4;
-        pane.add(westLabel2, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
         c.gridy = 6;
-        pane.add(westLabel3, c);
+        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
     }
 
     // Method to create arrow labels
-    private JLabel createArrowLabel(String iconPath) {
-        JLabel aLabel = new JLabel();
+    private JLabel createArrowLabel(ImageIcon icon) {
+        JLabel aLabel = new JLabel(icon);
+//        aLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Top, Left, Bottom, Right
 
-    	ImageIcon aIcon = new ImageIcon(iconPath);
-    	
-    	if(iconPath.equals(arrowNorth)||iconPath.equals(arrowSouth)) {
-    		 Image scaledImage = aIcon.getImage().getScaledInstance(80, 25, Image.SCALE_SMOOTH);
-             aLabel.setIcon(new ImageIcon(scaledImage)); // Set the scaled icon to the button
-
-    	}else {
-    		 Image scaledImage = aIcon.getImage().getScaledInstance(25, 80, Image.SCALE_SMOOTH);
-             aLabel.setIcon(new ImageIcon(scaledImage)); // Set the scaled icon to the button
-    	}
-    	
-
-       
-        aLabel.setBorder(BorderFactory.createEmptyBorder()); // Remove borders
         return aLabel;
     }
 
     // Method to add random components (e.g., treasures) to maze tiles
     private void addRandomComponent(JLabel tile) {
-        ImageIcon treasureIcon = new ImageIcon("Images/treasure.png"); // Example random component
-        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    	
+//        int randomNumber = (int) (Math.random() * 21); // Generates a number between 0 (inclusive) and 21 (exclusive)
+
+        
+        
+        int randomNumber = 0 ;
+        
+        while(uniqueNumbers.size()<=21) {
+        	
+        
+        	randomNumber = (int) (Math.random() * 21); // Generates a number between 0 and 21
+	        if(uniqueNumbers.add(randomNumber)) {
+	        	 break; // if unq number found break loop and add the image 
+	        	
+	        	
+	        }
+	        else {
+	        	continue;  // find unique number again 
+	        }
+
+        }
+    	
+        ImageIcon treasureIcon = new ImageIcon(components[randomNumber]); // Example random component
+        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
 
         // Add treasure on top of the maze tile
