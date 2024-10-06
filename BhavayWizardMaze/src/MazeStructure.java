@@ -16,7 +16,13 @@ public class MazeStructure {
     String arrowSouth = "Images/AS.png";
     String arrowEast = "Images/AE.png";
     String[] components = new String[21];
-    Set<Integer> uniqueNumbers = new HashSet<>();
+    Set<Integer> componentsUniqueNumbers = new HashSet<>();
+    Set<Integer> wizardsUniqueNumbers = new HashSet<>();
+    String yellow  = "Images/yellow.png";
+    String red  = "Images/red.png";
+    String blue  = "Images/blue.png";
+    String green  = "Images/green.png";
+
     
     public MazeStructure() {
         mazeTiles = new String[11][3];
@@ -79,9 +85,11 @@ public class MazeStructure {
                     mazeTiles[randomNumber][2] = Integer.toString(tNumber); // Update the quantity
 
                     if( (i>1&&j>1) && (i<7&&j<7) ) { // place random component or wizard
+                    	
                     	if((i==3 || i ==5) && (j==3 || j ==5)) {
                     		
                     		// place wizard
+                    		addWizards(tileLabel);
                     	
                     		
                     	}
@@ -159,6 +167,52 @@ public class MazeStructure {
         return aLabel;
     }
 
+    
+    // method to put wizards 
+    
+    private void addWizards(JLabel tile) {
+    	
+    	int randomNumber = 2;
+    	
+    	while(wizardsUniqueNumbers.size()<=4) {
+        	
+            
+        	randomNumber = (int) (Math.random() * 4); // Generates a number between 0 and 21
+	        if(wizardsUniqueNumbers.add(randomNumber)) {
+	        	 break; // if unq number found break loop and add the image 
+	        	
+	        	
+	        }
+	        else {
+	        	continue;  // find unique number again 
+	        }
+
+        }
+    	String wizColor = yellow ;// defauolt
+    	if (randomNumber ==0) { // yellow 
+        	wizColor  = yellow; 
+    	}
+    	else if(randomNumber ==1) { // red
+        	wizColor  = red; 
+
+    	}else if(randomNumber ==2) { // blue
+        	wizColor  = blue; 
+
+    	}else { // green
+        	wizColor  = green; 
+
+    	}
+    	
+    	ImageIcon wizard = new ImageIcon(wizColor);// default  
+        Image scaledWizard = wizard.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+
+        tile.add(wizardLabel);
+        tile.setLayout(new GridBagLayout()); 
+    	
+    }
+    
+    
     // Method to add random components (e.g., treasures) to maze tiles
     private void addRandomComponent(JLabel tile) {
     	
@@ -168,11 +222,11 @@ public class MazeStructure {
         
         int randomNumber = 0 ;
         
-        while(uniqueNumbers.size()<=21) {
+        while(componentsUniqueNumbers.size()<=21) {
         	
         
         	randomNumber = (int) (Math.random() * 21); // Generates a number between 0 and 21
-	        if(uniqueNumbers.add(randomNumber)) {
+	        if(componentsUniqueNumbers.add(randomNumber)) {
 	        	 break; // if unq number found break loop and add the image 
 	        	
 	        	
