@@ -10,7 +10,14 @@
  * 
  */
 public class WizardMazeMain {
-	
+	public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WizardMazeUI wui = new WizardMazeUI();
+                wui.createAndShowGUI();
+            }
+        });
+    }
 	
 
 }
