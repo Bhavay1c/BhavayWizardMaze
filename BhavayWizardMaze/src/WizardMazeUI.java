@@ -21,20 +21,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+/**
+ * The WizardMazeUI class is responsible for creating and displaying 
+ * the user interface for the Wizard's Maze game. It handles the 
+ * arrangement of components, including the maze and menu bar.
+ */
 public class WizardMazeUI {
 	
 	private Color menuColor = new Color(50, 200, 77); // Color for menu items
 	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
 	private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
+	private String extraTile;
 
-	// method for the create and show GUI 
+	/**
+	 * Creates and displays the main GUI of the Wizard's Maze game.
+	 */
 	public void createAndShowGUI() {
 		JFrame frame = createMainFrame();
 		JPanel mainPanel = new JPanel(new BorderLayout());
 
 		// Create and configure the maze panel
 		JPanel mazePanel = createMazePanel();
-		SidePanel sidePanel = new SidePanel(); // Create the side panel
+		SidePanel sidePanel = new SidePanel(extraTile); // Create the side panel
 
 		// Create the background label with the background image
 		JLabel backgroundLabel = createBackgroundLabel(mazePanel, sidePanel);
@@ -49,6 +57,11 @@ public class WizardMazeUI {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Creates and configures the main frame for the application.
+	 * 
+	 * @return The configured JFrame object.
+	 */
 	private JFrame createMainFrame() {
 		JFrame frame = new JFrame("Wizard's Maze");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,33 +69,47 @@ public class WizardMazeUI {
 		return frame;
 	}
 
+	/**
+	 * Creates the maze panel and populates it with maze tiles.
+	 * 
+	 * @return The JPanel containing the maze.
+	 */
 	private JPanel createMazePanel() {
 		JPanel mazePanel = new JPanel();
 		mazePanel.setOpaque(false);
 		MazeStructure mazeStructure = new MazeStructure();
-		mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
+		extraTile = mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
 		return mazePanel;
 	}
 
+	/**
+	 * Creates a background label with the specified maze and side panel.
+	 * 
+	 * @param mazePanel The panel containing the maze.
+	 * @param sidePanel The panel containing additional controls.
+	 * @return The JLabel that serves as the background for the UI.
+	 */
 	private JLabel createBackgroundLabel(JPanel mazePanel, SidePanel sidePanel) {
 		JLabel backgroundLabel = new JLabel();
 		backgroundLabel.setIcon(backgroundImage);
 		backgroundLabel.setLayout(new BorderLayout()); // Use BorderLayout for easy overlaying
 		
-		
-		//  creating a panel for margin for the maze 
+		// Creating a panel for margin for the maze 
 		JPanel wrapperPanel = new JPanel(new BorderLayout());
-        wrapperPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0)); // 20 pixels left margin
-        wrapperPanel.setOpaque(false);
-      
-
-        wrapperPanel.add(mazePanel, BorderLayout.CENTER);
-        backgroundLabel.add(wrapperPanel, BorderLayout.WEST);
+		wrapperPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0)); // 20 pixels left margin
+		wrapperPanel.setOpaque(false);
+		
+		wrapperPanel.add(mazePanel, BorderLayout.CENTER);
+		backgroundLabel.add(wrapperPanel, BorderLayout.WEST);
 		backgroundLabel.add(sidePanel, BorderLayout.EAST); // Add the side panel to the east
 		return backgroundLabel;
 	}
 
-	// Method for creating menu bar
+	/**
+	 * Creates the menu bar for the application.
+	 * 
+	 * @return The JMenuBar object containing all the menus.
+	 */
 	public JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
@@ -154,7 +181,12 @@ public class WizardMazeUI {
 		return menuBar;
 	}
 
-	// Helper method to create menu items with consistent styling
+	/**
+	 * Helper method to create menu items with consistent styling.
+	 * 
+	 * @param text The text to be displayed on the menu item.
+	 * @return A JMenuItem with consistent styling.
+	 */
 	private JMenuItem createMenuItem(String text) {
 		JMenuItem menuItem = new JMenuItem(text);
 		menuItem.setFont(menuFont);

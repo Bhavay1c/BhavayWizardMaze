@@ -4,6 +4,11 @@ import java.util.Set;
 
 import javax.swing.*;
 
+/**
+ * The MazeStructure class is responsible for managing the maze tiles,
+ * displaying them in a specified container, and handling the 
+ * associated components such as arrows and wizards.
+ */
 public class MazeStructure {
 
     // Declare the mazeTiles array
@@ -11,19 +16,21 @@ public class MazeStructure {
     public JLabel[][] mazePattern = new JLabel[8][8];
 
     // Arrow button images
-    String arrowNorth = "Images/An.png";
-    String arrowWest = "Images/AW.png";
-    String arrowSouth = "Images/AS.png";
-    String arrowEast = "Images/AE.png";
-    String[] components = new String[21];
-    Set<Integer> componentsUniqueNumbers = new HashSet<>();
-    Set<Integer> wizardsUniqueNumbers = new HashSet<>();
-    String yellow  = "Images/yellow.png";
-    String red  = "Images/red.png";
-    String blue  = "Images/blue.png";
-    String green  = "Images/green.png";
+    private String arrowNorth = "Images/An.png";
+    private String arrowWest = "Images/AW.png";
+    private String arrowSouth = "Images/AS.png";
+    private String arrowEast = "Images/AE.png";
+    private String[] components = new String[21];
+    private Set<Integer> componentsUniqueNumbers = new HashSet<>();
+    private Set<Integer> wizardsUniqueNumbers = new HashSet<>();
+    private String yellow = "Images/yellow.png";
+    private String red = "Images/red.png";
+    private String blue = "Images/blue.png";
+    private String green = "Images/green.png";
 
-    
+    /**
+     * Constructs a MazeStructure object and initializes the maze tiles.
+     */
     public MazeStructure() {
         mazeTiles = new String[11][3];
 
@@ -39,30 +46,33 @@ public class MazeStructure {
         mazeTiles[8] = new String[]{"NW", "Images/NW.png", "4"};          // NW
         mazeTiles[9] = new String[]{"SE", "Images/SE.png", "4"};          // SE
         mazeTiles[10] = new String[]{"SW", "Images/SW.png", "4"};         // SW
-        
-        
+
         for (int i = 1; i <= 21; i++) {
             components[i - 1] = "Images/green_" + i + ".png"; // Green component images
-            
+
         }
         components[20] = "Images/green_" + 25 + ".png"; // Green component images
 
     }
 
-    // Method to display the maze tile information in the specified container
-    public void displayMazeTiles(Container pane) {
+    /**
+     * Displays the maze tiles in the specified container.
+     *
+     * @param pane The container in which to display the maze tiles.
+     */
+    public String displayMazeTiles(Container pane) {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
         // Add Arrow Labels for Shifting Maze
         addArrowLabels(pane, c);
-        
+
         // Add maze tiles
         for (int i = 1; i < 8; i++) {
             for (int j = 1; j < 8; j++) {
                 int randomNumber = (int) (Math.random() * 11); // Generates a number between 0 and 10
                 String stringNumber = mazeTiles[randomNumber][2]; // Get the quantity
-                int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining 
+                int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining
 
                 if (tNumber > 0) {
                     JLabel tileLabel = new JLabel();
@@ -84,34 +94,35 @@ public class MazeStructure {
                     tNumber--;
                     mazeTiles[randomNumber][2] = Integer.toString(tNumber); // Update the quantity
 
-                    if( (i>1&&j>1) && (i<7&&j<7) ) { // place random component or wizard
-                    	
-                    	if((i==3 || i ==5) && (j==3 || j ==5)) {
-                    		
-                    		// place wizard
-                    		addWizards(tileLabel);
-                    	
-                    		
-                    	}
-                    	else {
-                    		
-                    		addRandomComponent(tileLabel);
-                    	}
-                    	
+                    if ((i > 1 && j > 1) && (i < 7 && j < 7)) { // place random component or wizard
+
+                        if ((i == 3 || i == 5) && (j == 3 || j == 5)) {
+
+                            // place wizard
+                            addWizards(tileLabel);
+                        } else {
+
+                            addRandomComponent(tileLabel);
+                        }
+
                     }
-                    
-                    
+
                 } else {
                     j--; // If no tile can be placed, decrement y to try again
                 }
             }
-      
-        
         }
-        extraMazePiece();
+     
+        
+        return extraMazePiece();
     }
 
-    // Method to add arrow labels around the maze
+    /**
+     * Adds arrow labels around the maze.
+     *
+     * @param pane The container in which to add arrow labels.
+     * @param c    The GridBagConstraints to configure the layout.
+     */
     private void addArrowLabels(Container pane, GridBagConstraints c) {
         // Create one ImageIcon for each direction
         ImageIcon northIcon = new ImageIcon(arrowNorth);
@@ -148,7 +159,7 @@ public class MazeStructure {
         c.gridy = 2;
         pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
         c.gridy = 4;
-        pane.add(createArrowLabel(new ImageIcon(scaledEast)),c);
+        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
         c.gridy = 6;
         pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
 
@@ -162,7 +173,12 @@ public class MazeStructure {
         pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
     }
 
-    // Method to create arrow labels
+    /**
+     * Creates an arrow label with the specified icon.
+     *
+     * @param icon The ImageIcon to be used for the label.
+     * @return A JLabel containing the specified icon.
+     */
     private JLabel createArrowLabel(ImageIcon icon) {
         JLabel aLabel = new JLabel(icon);
 //        aLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Top, Left, Bottom, Right
@@ -170,76 +186,61 @@ public class MazeStructure {
         return aLabel;
     }
 
-    
-    // method to put wizards 
-    
+    /**
+     * Places a wizard on a randomly selected maze tile.
+     *
+     * @param tile The JLabel representing the maze tile.
+     */
     private void addWizards(JLabel tile) {
-    	
-    	int randomNumber = 2;
-    	
-    	while(wizardsUniqueNumbers.size()<=4) {
-        	
-            
-        	randomNumber = (int) (Math.random() * 4); // Generates a number between 0 and 21
-	        if(wizardsUniqueNumbers.add(randomNumber)) {
-	        	 break; // if unq number found break loop and add the image 
-	        	
-	        	
-	        }
-	        else {
-	        	continue;  // find unique number again 
-	        }
+        int randomNumber = 2;
+
+        while (wizardsUniqueNumbers.size() <= 4) {
+            randomNumber = (int) (Math.random() * 4); // Generates a number between 0 and 21
+            if (wizardsUniqueNumbers.add(randomNumber)) {
+                break; // if unq number found break loop and add the image
+            } else {
+                continue; // find unique number again
+            }
+        }
+        String wizColor = yellow; // default
+        if (randomNumber == 0) { // yellow
+            wizColor = yellow;
+        } else if (randomNumber == 1) { // red
+            wizColor = red;
+
+        } else if (randomNumber == 2) { // blue
+            wizColor = blue;
+
+        } else { // green
+            wizColor = green;
 
         }
-    	String wizColor = yellow ;// defauolt
-    	if (randomNumber ==0) { // yellow 
-        	wizColor  = yellow; 
-    	}
-    	else if(randomNumber ==1) { // red
-        	wizColor  = red; 
 
-    	}else if(randomNumber ==2) { // blue
-        	wizColor  = blue; 
-
-    	}else { // green
-        	wizColor  = green; 
-
-    	}
-    	
-    	ImageIcon wizard = new ImageIcon(wizColor);// default  
+        ImageIcon wizard = new ImageIcon(wizColor); // default
         Image scaledWizard = wizard.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
 
         tile.add(wizardLabel);
-        tile.setLayout(new GridBagLayout()); 
-    	
+        tile.setLayout(new GridBagLayout());
     }
-    
-    
-    // Method to add random components (e.g., treasures) to maze tiles
+
+    /**
+     * Adds a random component (e.g., treasures) to a maze tile.
+     *
+     * @param tile The JLabel representing the maze tile.
+     */
     private void addRandomComponent(JLabel tile) {
-    	
-//        int randomNumber = (int) (Math.random() * 21); // Generates a number between 0 (inclusive) and 21 (exclusive)
+        int randomNumber = 0;
 
-        
-        
-        int randomNumber = 0 ;
-        
-        while(componentsUniqueNumbers.size()<=21) {
-        	
-        
-        	randomNumber = (int) (Math.random() * 21); // Generates a number between 0 and 21
-	        if(componentsUniqueNumbers.add(randomNumber)) {
-	        	 break; // if unq number found break loop and add the image 
-	        	
-	        	
-	        }
-	        else {
-	        	continue;  // find unique number again 
-	        }
-
+        while (componentsUniqueNumbers.size() <= 21) {
+            randomNumber = (int) (Math.random() * 21); // Generates a number between 0 and 21
+            if (componentsUniqueNumbers.add(randomNumber)) {
+                break; // if unq number found break loop and add the image
+            } else {
+                continue; // find unique number again
+            }
         }
-    	
+
         ImageIcon treasureIcon = new ImageIcon(components[randomNumber]); // Example random component
         Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
@@ -248,33 +249,26 @@ public class MazeStructure {
         tile.add(treasureLabel);
         tile.setLayout(new GridBagLayout()); // Use layout for placing the treasure
     }
-    
-    
+
+    /**
+     * Returns the path of an extra maze piece.
+     *
+     * @return A string representing the path to the extra maze piece image.
+     */
     private String extraMazePiece() {
-    	String extraTile = "";
-    	
-    	for(int i = 0; i < 11;i++) {
-    		
-    		String stringNumber = mazeTiles[i][2]; // Get the quantity
-            int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining 
+        String extraTile = "";
+
+        for (int i = 0; i < 11; i++) {
+            String stringNumber = mazeTiles[i][2]; // Get the quantity
+            int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining
 
             if (tNumber > 0) {
-            	
-            	extraTile = mazeTiles[i][1]; // Get the quantity
-            	
-        	
-            }else {
-            	continue;
+                extraTile = mazeTiles[i][1]; // Get the path
+            } else {
+                continue;
             }
-    		
-    	}
-  
-    	return extraTile;
-    		
-    		
-    	
-    	
+        }
+
+        return extraTile;
     }
-    
-    
 }
