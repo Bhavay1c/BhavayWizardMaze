@@ -1,11 +1,11 @@
-/*
- * Bhavay Garg
- * 041102440
- * Professor - Daniel Cormeir
- */
-
-/*
- * This class's function is to create the UI and arrange it by calling different classes 
+/**
+ * The WizardMazeUI class is responsible for creating and displaying 
+ * the user interface for the Wizard's Maze game. It handles the 
+ * arrangement of components, including the maze and menu bar
+ * 
+ * @author Bhavay Garg
+ * @studentID 041102440
+ * @professor Daniel Cormeir
  */
 
 import java.awt.BorderLayout;
@@ -21,11 +21,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-/**
- * The WizardMazeUI class is responsible for creating and displaying 
- * the user interface for the Wizard's Maze game. It handles the 
- * arrangement of components, including the maze and menu bar.
- */
 public class WizardMazeUI {
 	
 	private Color menuColor = new Color(50, 200, 77); // Color for menu items
