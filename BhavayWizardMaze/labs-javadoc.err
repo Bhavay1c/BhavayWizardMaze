@@ -1,45 +1,93 @@
 Loading source file src\WizardMazeMain.java...
 Loading source file src\MazeStructure.java...
 Loading source file src\WizardMazeUI.java...
+Loading source file src\SidePanel.java...
 Constructing Javadoc information...
 Building index for all the packages and classes...
 Standard Doclet version 17.0.7+7-LTS
 Building tree for all the packages and classes...
+src\WizardMazeMain.java:7: error: unknown tag: studentID
+ * @studentID 041102440
+   ^
+src\WizardMazeMain.java:8: error: unknown tag: professor
+ * @professor Daniel Cormeir
+   ^
 Generating doc\MazeStructure.html...
-src\MazeStructure.java:7: warning: no comment
-public class MazeStructure {
-       ^
-src\MazeStructure.java:11: warning: no comment
+src\MazeStructure.java:63: warning: no @return
+    public String displayMazeTiles(Container pane) {
+                  ^
+src\MazeStructure.java:16: warning: no comment
     public JLabel[][] mazePattern = new JLabel[8][8];
                       ^
-src\MazeStructure.java:10: warning: no comment
+src\MazeStructure.java:15: warning: no comment
     public String[][] mazeTiles;
                       ^
-src\MazeStructure.java:27: warning: no comment
-    public MazeStructure() {
+Generating doc\SidePanel.html...
+src\SidePanel.java:29: warning: no @param for mazePiece
+    public SidePanel(String mazePiece) {
            ^
-src\MazeStructure.java:53: warning: no comment
-    public void displayMazeTiles(Container pane) {
-                ^
-Generating doc\WizardMazeMain.html...
-src\WizardMazeMain.java:12: warning: no comment
-public class WizardMazeMain {
+src\SidePanel.java:15: warning: no comment
+public class SidePanel extends JPanel {
        ^
-src\WizardMazeMain.java:13: warning: no comment
-	public static void main(String[] args) {
-	                   ^
+Generating doc\WizardMazeMain.html...
 Generating doc\WizardMazeUI.html...
-src\WizardMazeUI.java:31: warning: no comment
+src\WizardMazeUI.java:24: warning: no comment
 public class WizardMazeUI {
        ^
-src\WizardMazeUI.java:40: warning: no comment
-	 public void createAndShowGUI() {
-	             ^
-src\WizardMazeUI.java:201: warning: no comment
-	 public JMenuBar createMenuBar() {
-	                 ^
 Generating doc\package-summary.html...
 Generating doc\package-tree.html...
+Generating doc\serialized-form.html...
+src\SidePanel.java:21: warning: no comment
+    private Color buttonColor = new Color(63, 53, 53, 87); // Button background color
+                  ^
+src\SidePanel.java:22: warning: no comment
+    private Color buttonTexts = new Color(233, 15, 105, 123); // Button text color
+                  ^
+src\SidePanel.java:19: warning: no comment
+    private JScrollPane capturedPiecesScroll, chatScrollPane;
+                        ^
+src\SidePanel.java:18: warning: no comment
+    private JTextArea chatBoxArea, chatInputArea;
+                      ^
+src\SidePanel.java:18: warning: no comment
+    private JTextArea chatBoxArea, chatInputArea;
+                                   ^
+src\SidePanel.java:19: warning: no comment
+    private JScrollPane capturedPiecesScroll, chatScrollPane;
+                                              ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                    ^
+src\SidePanel.java:20: warning: no comment
+    private String extraMazePiece;
+                   ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                                                                                ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                                                          ^
+src\SidePanel.java:23: warning: no comment
+    private Map<String, Color> players;
+                               ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                                            ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                                                                                                 ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                                                                                                                   ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                ^
+src\SidePanel.java:16: warning: no comment
+    private JLabel spareTileLabel;
+                   ^
+src\SidePanel.java:17: warning: no comment
+    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
+                                               ^
 Generating doc\overview-tree.html...
 Building index for all classes...
 Generating doc\allclasses-index.html...
@@ -47,4 +95,5 @@ Generating doc\allpackages-index.html...
 Generating doc\index-all.html...
 Generating doc\index.html...
 Generating doc\help-doc.html...
-10 warnings
+2 errors
+23 warnings

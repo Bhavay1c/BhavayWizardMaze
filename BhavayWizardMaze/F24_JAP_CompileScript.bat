@@ -72,7 +72,7 @@ jar cvfe %JARNAME% %MAINCLASSBIN% . > ../%JAROUT% 2> ../%JARERR%
 
 ECHO "3. Creating Javadoc ..............."
 cd ..
-javadoc -cp ".;%BINDIR%;../%LIBDIR%/*" --module-path "%LIBDIR%" -d %DOCDIR% -sourcepath %SRCDIR% src/WizardMazeMain.java src/MazeStructure.java src/WizardMazeUI.java 2> %DOCERR%
+javadoc -cp ".;%BINDIR%;../%LIBDIR%/*" --module-path "%LIBDIR%" -d %DOCDIR% -sourcepath %SRCDIR% src/WizardMazeMain.java src/MazeStructure.java src/WizardMazeUI.java src/SidePanel.java 2> %DOCERR%
 
 cd bin
 ECHO "4. Running Jar ...................."

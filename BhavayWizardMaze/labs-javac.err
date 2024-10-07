@@ -1,2 +1,5 @@
 warning: [path] Invalid filename: lib/*
-1 warning
+src\SidePanel.java:15: warning: [serial] serializable class SidePanel has no definition of serialVersionUID
+public class SidePanel extends JPanel {
+       ^
+2 warnings
