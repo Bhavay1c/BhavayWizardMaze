@@ -105,7 +105,10 @@ public class MazeStructure {
                     j--; // If no tile can be placed, decrement y to try again
                 }
             }
+      
+        
         }
+        extraMazePiece();
     }
 
     // Method to add arrow labels around the maze
@@ -245,4 +248,33 @@ public class MazeStructure {
         tile.add(treasureLabel);
         tile.setLayout(new GridBagLayout()); // Use layout for placing the treasure
     }
+    
+    
+    private String extraMazePiece() {
+    	String extraTile = "";
+    	
+    	for(int i = 0; i < 11;i++) {
+    		
+    		String stringNumber = mazeTiles[i][2]; // Get the quantity
+            int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining 
+
+            if (tNumber > 0) {
+            	
+            	extraTile = mazeTiles[i][1]; // Get the quantity
+            	
+        	
+            }else {
+            	continue;
+            }
+    		
+    	}
+  
+    	return extraTile;
+    		
+    		
+    	
+    	
+    }
+    
+    
 }

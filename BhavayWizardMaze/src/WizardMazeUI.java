@@ -15,25 +15,31 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class WizardMazeUI {
 	
 	private Color menuColor = new Color(50, 200, 77); // Color for menu items
-	private Font menuFont = new Font("Segoe UI", Font.ITALIC, 24); // Font for menu items
-    private ImageIcon backgroundImage = new ImageIcon("Images/BG.jpg");
-    private ImageIcon logoImage = new ImageIcon("Images/LOGO.png");
+	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
+    private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
 
 	
 	// method for the create and show gui 
 	 public void createAndShowGUI() {
+		 
+		 
+		 
 		 
 		 	// main jFrame
 	        // Create the JFrame and set its properties
@@ -41,7 +47,7 @@ public class WizardMazeUI {
 	        
 	        
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setSize(1250, 840); // Set the desired size for the window
+	        frame.setSize(1350, 840); // Set the desired size for the window
 
 	        // Create the main panel using BorderLayout
 	        JPanel mainPanel = new JPanel(new BorderLayout());
@@ -65,9 +71,16 @@ public class WizardMazeUI {
 	       
 	        backgroundILabel.add(mazePanel, BorderLayout.WEST); // Place maze panel on the left
 
-	        // Create the newPanel to cover the entire background panel
-	        JPanel newPanel = new JPanel(new GridBagLayout());
-	        newPanel.setOpaque(false); // Make newPanel transparent so the background is visible
+	  
+	        
+	     // Add the side panel using a separate method
+	        JPanel sidePanel = createSidePanel();
+	        backgroundILabel.add(sidePanel, BorderLayout.EAST); // Add the side panel to the east
+	        
+	        
+//	        // Create the newPanel to cover the entire background panel
+//	        JPanel newPanel = new JPanel(new GridBagLayout());
+//	        newPanel.setOpaque(false); // Make newPanel transparent so the background is visible
 
 	       
 
@@ -171,7 +184,13 @@ public class WizardMazeUI {
     
 //     menuBar.setBackground(new Color(63, 53, 63, 90)); // Set the background color with transparency
 
-	 // method for creating menu bar 
+	 
+	 
+	 
+	 
+	 
+	 
+	 // method for creating menu bar go
 	 public JMenuBar createMenuBar() {
 	        JMenuBar menuBar = new JMenuBar();
 	        menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
@@ -268,5 +287,49 @@ public class WizardMazeUI {
 
 	        return menuBar;
 	    }
+	 
+	 private JPanel createSidePanel() {
+	        // Create the side panel using GridBagLayout
+	        JPanel sidePanel = new JPanel(new GridBagLayout());
+	        sidePanel.setOpaque(false); // Make the side panel transparent
+
+	        GridBagConstraints gbc = new GridBagConstraints();
+	        gbc.insets = new Insets(5, 5, 5, 5); // Add some margin between components
+
+	        // Add logo to the side panel
+	       
+
+	        // Create buttons for the side panel
+	        gbc.anchor = GridBagConstraints.NORTHWEST;
+	        
+	        JButton done = new JButton();
+	        
+	        String[] buttonLabels = {"Done", "Shuffle", "Wands", "Recipe", "Piece Captured"};
+            gbc.gridy =  1; // Update row for each button
+            gbc.gridx =  1; // Update row for each button
+
+	        for (int i = 0; i < buttonLabels.length; i++) {
+	            JButton button = new JButton(buttonLabels[i]);
+	            
+	            sidePanel.add(button, gbc);
+	        }
+
+	        // Add a chat box at the bottom
+	        JTextArea chatBox = new JTextArea(5, 20); // Example chat box with 5 rows and 20 columns
+	        chatBox.setLineWrap(true);
+	        chatBox.setWrapStyleWord(true);
+	        JScrollPane scrollPane = new JScrollPane(chatBox); // Add scroll pane for scrolling
+
+	        gbc.gridy = buttonLabels.length + 1; // Update row for chat box
+	        gbc.fill = GridBagConstraints.BOTH; // Fill the remaining space
+	        gbc.weighty = 1.0; // Let the chat box take extra vertical space
+	        sidePanel.add(scrollPane, gbc);
+
+	        return sidePanel;
+	    }
+
+	 
+	 
+	 
 	}
 
