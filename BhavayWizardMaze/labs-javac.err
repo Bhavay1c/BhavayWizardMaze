@@ -1,5 +1,26 @@
 warning: [path] Invalid filename: lib/*
+src\WizardMazeUI.java:1: warning: [dangling-doc-comments] documentation comment is not attached to any declaration
+/**
+^
+src\SidePanel.java:1: warning: [dangling-doc-comments] documentation comment is not attached to any declaration
+/**
+^
+src\SidePanel.java:149: warning: [dangling-doc-comments] documentation comment is not attached to any declaration
+////        chatBoxArea.setWrapStyleWord(true);
+^
+src\SidePanel.java:68: warning: [dangling-doc-comments] documentation comment is not attached to any declaration
+////        gbc.gridwidth = 3;
+^
+src\SidePanel.java:56: warning: [dangling-doc-comments] documentation comment is not attached to any declaration
+////        gbc.gridwidth = 3;
+^
 src\SidePanel.java:15: warning: [serial] serializable class SidePanel has no definition of serialVersionUID
 public class SidePanel extends JPanel {
        ^
-2 warnings
+src\SidePanel.java:29: warning: [serial] non-transient instance field of a serializable class declared with a non-serializable type
+    private Map<String, Color> players;
+                               ^
+src\SidePanel.java:207: warning: [this-escape] possible 'this' escape before subclass is fully initialized
+    	 setLayout(new GridBagLayout());
+    	          ^
+9 warnings

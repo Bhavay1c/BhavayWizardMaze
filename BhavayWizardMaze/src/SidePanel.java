@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 
 public class SidePanel extends JPanel {
@@ -19,14 +20,15 @@ public class SidePanel extends JPanel {
     private JScrollPane capturedPiecesScroll, chatScrollPane;
     private String extraMazePiece;
     private String rotatorImage = "Images/rotator.png";
-    private Color buttonBackgroundColor = new Color(63, 53, 53, 1); // Button background color
+    private Color buttonBackgroundColor = new Color(63, 53, 53, 255); // Button background color
     private Color buttonGTexts = new Color(183, 18, 128, 255); // Button text color
     private Color greenWTexts = new Color(63, 181, 13, 255); // Button text color
     private Color redWTexts = new Color(181, 13, 13, 255); // Button text color
     private Color blueWTexts = new Color(18, 29, 183,255); // Button text color
     private Color yellowWTexts = new Color(225, 219, 25, 255); // Button text color
-
-    private Map<String, Color> players;
+    private Font textFont = new Font("Arial", Font.BOLD, 24);
+//    private Map<String, Color> players;
+    private ArrayList<Player> playersList = new ArrayList<Player>(4);
 
 //    /**
 //     * Constructs a SidePanel and initializes its components.
@@ -207,35 +209,101 @@ public class SidePanel extends JPanel {
     	 setLayout(new GridBagLayout());
          setOpaque(false); // transparent 
          GridBagConstraints gbc = new GridBagConstraints();
-    	 /// test image of wizard will update in mvc
+    	 /// test image of wizard will update in mvc what to change remove below line so that code supply which current player instaeed of green 
          
-         ImageIcon playerWImage = new ImageIcon("Images/Green.png"); // default
-         Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-         JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
-      currentPlayerMazePiecePanelAdd(mazePiece, gbc, "Bhavay", greenWTexts,wizardLabel);
+         Player player1 = new Player("Bhavay",1,greenWTexts,"Images/Green.png");
+         Player player2 = new Player("Solomon",2,redWTexts,"Images/Red.png");
+         Player player3 = new Player("Mohammad",3,blueWTexts,"Images/Blue.png");
+         Player player4 = new Player("Himanshu",4,yellowWTexts,"Images/Yellow.png");
+
+        playersList.add(player1);
+        playersList.add(player2);
+        playersList.add(player3);
+        playersList.add(player4);
+
+        
+         
+         
+         
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        currentPlayerMazePiecePanelAdd(mazePiece, player3 , gbc);
+         
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        playersListAdd(gbc,2);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        doneButtonAdd(gbc);  
 
     	
     }
     
     
     
-    public void playersListAdd() {
-        players = new HashMap<>(); // using hashmap to store the players name and their respective  color 
+    public void playersListAdd(GridBagConstraints gbc, int componentNumber) {
+    	
+    	JPanel playersListPanel = new JPanel();
+    	playersListPanel.setLayout(new GridBagLayout());
+    	playersListPanel.setOpaque(false);
+    	GridBagConstraints gbc2 = new GridBagConstraints();
+    	int y = 0  ; // used to move to new line using gbc constarints
+    	for (Player player :playersList) {
+    		
+    		JLabel playerTextLabel = new JLabel(player.getName());
+            playerTextLabel.setFont(textFont); // font
+
+            playerTextLabel.setForeground(player.getColor());
+        	gbc2.gridx = 0;
+        	gbc2.gridy = y;
+        	gbc2.insets = new Insets(0,5,10,0);
+            playersListPanel.add(playerTextLabel,gbc2);
+            
+    		  ImageIcon playerWImage = new ImageIcon(player.getImageAddress()); // default
+    	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+    	      
+    	      gbc2.gridx = 1;
+    	      gbc2.gridy = y;
+              playersListPanel.add(wizardLabel,gbc2);
+              y++; // increment y to move to next line 
+
+    	      
+    		
+    		
+    	}
+    	
+    	JLabel nextComponentLabel = new JLabel("Next Capture : " + componentNumber);
+        nextComponentLabel.setFont(textFont); // font
+        gbc2.gridx = 0;
+        gbc2.gridy = y+1;
+
+        nextComponentLabel.setForeground(buttonGTexts);
+        playersListPanel.add(nextComponentLabel,gbc2);
+
+  
+        
+        add(playersListPanel, gbc);
+
+        
+        
+        playersListPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.red));;
 
     	
     }
     
-    public void currentPlayerMazePiecePanelAdd(String mazePiece, GridBagConstraints gbc, String playerName, Color playerColor, JLabel playerWizardLabel  ) {
+    public void currentPlayerMazePiecePanelAdd(String mazePiece, Player cPlayer,  GridBagConstraints gbc  ) {
     	JPanel currentPlayerMazePiecePanel = new JPanel();
     	currentPlayerMazePiecePanel.setLayout(new GridBagLayout());
     	currentPlayerMazePiecePanel.setOpaque(false);
     	GridBagConstraints gbc2 = new GridBagConstraints();
     	
     	 // Label for the current player's turn
-        JLabel currentTurnLabel = new JLabel(playerName + "'s Turn");
-        currentTurnLabel.setFont(new Font("Arial", Font.BOLD, 32)); // font
+        JLabel currentTurnLabel = new JLabel(cPlayer.getName() + "'s Turn");
+        currentTurnLabel.setFont(textFont); // font
 
-        currentTurnLabel.setForeground(playerColor);
+        currentTurnLabel.setForeground(cPlayer.getColor());
     	gbc2.gridx = 0;
     	gbc2.gridy = 0;
     	gbc2.insets = new Insets(0,5,10,0);
@@ -243,7 +311,11 @@ public class SidePanel extends JPanel {
 
         gbc2.gridx = 1;
     	gbc2.gridy = 0;
-        currentPlayerMazePiecePanel.add(playerWizardLabel,gbc2);
+    	
+    	 ImageIcon playerWImage = new ImageIcon(cPlayer.getImageAddress()); // default
+	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+        currentPlayerMazePiecePanel.add(wizardLabel,gbc2);
 
     	// spare tile label 
 	    extraMazePiece = mazePiece;
@@ -267,8 +339,30 @@ public class SidePanel extends JPanel {
         gbc2.gridy = 2;
         currentPlayerMazePiecePanel.add(rotatorButton,gbc2);
 
+        currentPlayerMazePiecePanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.blue));;
+
 
         add(currentPlayerMazePiecePanel, gbc);
     }
     
+    public void doneButtonAdd(GridBagConstraints gbc ) {
+    	
+    	
+    	JButton doneButton = new JButton("Done");
+
+    	styleButton(doneButton);
+    	
+    	
+    	add(doneButton,gbc);
+    	
+    }
+    
+    private void styleButton(JButton button) {
+      button.setOpaque(true); // Ensure the button is opaque to apply background color
+//      button.setContentAreaFilled(true); // Fill the button with the background color
+//      button.setBackground(buttonBackgroundColor); // Use the color defined for all buttons
+      button.setForeground(buttonGTexts); // Text color for buttons
+//      button.setBorder(BorderFactory.createLineBorder()); // Optional: add a border with transparency
+      button.setFont(textFont); // Set font size for all buttons
+  }
 }
