@@ -13,7 +13,7 @@ public class MazeStructure {
 
     // Declare the mazeTiles array
     public String[][] mazeTiles;
-    public JLabel[][] mazePattern = new JLabel[8][8];
+    public JButton[][] mazePattern = new JButton[8][8];
 
     // Arrow button images
     private String arrowNorth = "Images/An.png";
@@ -65,7 +65,8 @@ public class MazeStructure {
         GridBagConstraints c = new GridBagConstraints();
 
         // Add Arrow Labels for Shifting Maze
-        addArrowLabels(pane, c);
+        addArrowButtons(pane, c);
+//        c.insets = new Insets(0, 0, 0, 0); // Add padding
 
         // Add maze tiles
         for (int i = 1; i < 8; i++) {
@@ -75,20 +76,21 @@ public class MazeStructure {
                 int tNumber = Integer.parseInt(stringNumber); // number which represents the amount of tile remaining
 
                 if (tNumber > 0) {
-                    JLabel tileLabel = new JLabel();
+                    JButton tileButton = new JButton();
                     ImageIcon icon = new ImageIcon(mazeTiles[randomNumber][1]);
                     Image scaledImage = icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-                    tileLabel.setIcon(new ImageIcon(scaledImage)); // Set the scaled icon to the button
+                    tileButton.setIcon(new ImageIcon(scaledImage)); // Set the scaled icon to the button
 
-                    tileLabel.setPreferredSize(new Dimension(80, 80)); // Set tile size
-                    tileLabel.setBorder(BorderFactory.createEmptyBorder()); // Remove borders
+                    tileButton.setPreferredSize(new Dimension(80, 80)); // Set tile size
+                    tileButton.setBorder(BorderFactory.createEmptyBorder()); // Remove borders
 
                     c.gridx = i;
                     c.gridy = j;
                     c.fill = GridBagConstraints.BOTH;
-                    mazePattern[i][j] = tileLabel;
+                    
+                    mazePattern[i][j] = tileButton;
 
-                    pane.add(tileLabel, c);
+                    pane.add(tileButton, c);
 
                     // Decrease the quantity of the maze tile
                     tNumber--;
@@ -99,10 +101,10 @@ public class MazeStructure {
                         if ((i == 3 || i == 5) && (j == 3 || j == 5)) {
 
                             // place wizard
-                            addWizards(tileLabel);
+                            addWizards(tileButton);
                         } else {
 
-                            addRandomComponent(tileLabel);
+                            addRandomComponent(tileButton);
                         }
 
                     }
@@ -123,7 +125,7 @@ public class MazeStructure {
      * @param pane The container in which to add arrow labels.
      * @param c    The GridBagConstraints to configure the layout.
      */
-    private void addArrowLabels(Container pane, GridBagConstraints c) {
+    private void addArrowButtons(Container pane, GridBagConstraints c) {
         // Create one ImageIcon for each direction
         ImageIcon northIcon = new ImageIcon(arrowNorth);
         ImageIcon southIcon = new ImageIcon(arrowSouth);
@@ -137,40 +139,43 @@ public class MazeStructure {
         Image scaledEast = eastIcon.getImage().getScaledInstance(25, 80, Image.SCALE_SMOOTH);
 
         // Add North labels (below the maze)
+        
+//        c.insets = new Insets(0, 0, 0,0); // Add padding
+
         c.gridx = 2;
         c.gridy = 0;
-        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
         c.gridx = 4;
-        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
         c.gridx = 6;
-        pane.add(createArrowLabel(new ImageIcon(scaledSouth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
 
         // Add South labels (above the maze)
         c.gridx = 2;
         c.gridy = 8;
-        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
         c.gridx = 4;
-        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
         c.gridx = 6;
-        pane.add(createArrowLabel(new ImageIcon(scaledNorth)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
 
         // Add West labels (to the left of the maze)
         c.gridx = 0;
         c.gridy = 2;
-        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
         c.gridy = 4;
-        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
         c.gridy = 6;
-        pane.add(createArrowLabel(new ImageIcon(scaledEast)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
 
         // Add East labels (to the right of the maze)
         c.gridx = 8;
         c.gridy = 2;
-        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
         c.gridy = 4;
-        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
         c.gridy = 6;
-        pane.add(createArrowLabel(new ImageIcon(scaledWest)), c);
+        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
     }
 
     /**
@@ -179,9 +184,9 @@ public class MazeStructure {
      * @param icon The ImageIcon to be used for the label.
      * @return A JLabel containing the specified icon.
      */
-    private JLabel createArrowLabel(ImageIcon icon) {
-        JLabel aLabel = new JLabel(icon);
-//        aLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Top, Left, Bottom, Right
+    private JButton createArrowButton(ImageIcon icon) {
+        JButton aLabel = new JButton(icon);
+        aLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0)); // Top, Left, Bottom, Right
 
         return aLabel;
     }
@@ -191,7 +196,7 @@ public class MazeStructure {
      *
      * @param tile The JLabel representing the maze tile.
      */
-    private void addWizards(JLabel tile) {
+    private void addWizards(JButton tile) {
         int randomNumber = 2;
 
         while (wizardsUniqueNumbers.size() <= 4) {
@@ -229,7 +234,7 @@ public class MazeStructure {
      *
      * @param tile The JLabel representing the maze tile.
      */
-    private void addRandomComponent(JLabel tile) {
+    private void addRandomComponent(JButton tile) {
         int randomNumber = 0;
 
         while (componentsUniqueNumbers.size() <= 21) {
