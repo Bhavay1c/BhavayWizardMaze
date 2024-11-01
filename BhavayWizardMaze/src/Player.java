@@ -7,6 +7,7 @@ import java.awt.Color;
  * @studentID 041102440
  * @professor Daniel Cormeir
  */
+
 public class Player {
     // Attributes
     private String name;          // Player's name

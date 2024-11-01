@@ -20,7 +20,7 @@ public class SidePanel extends JPanel {
     private JScrollPane capturedPiecesScroll, chatScrollPane;
     private String extraMazePiece;
     private String rotatorImage = "Images/rotator.png";
-    private Color buttonBackgroundColor = new Color(63, 53, 53, 255); // Button background color
+    private Color buttonBackgroundColor = new Color(63, 53, 53, 1); // Button background color
     private Color buttonGTexts = new Color(183, 18, 128, 255); // Button text color
     private Color greenWTexts = new Color(63, 181, 13, 255); // Button text color
     private Color redWTexts = new Color(181, 13, 13, 255); // Button text color
@@ -359,8 +359,8 @@ public class SidePanel extends JPanel {
     
     private void styleButton(JButton button) {
       button.setOpaque(true); // Ensure the button is opaque to apply background color
-//      button.setContentAreaFilled(true); // Fill the button with the background color
-//      button.setBackground(buttonBackgroundColor); // Use the color defined for all buttons
+      button.setContentAreaFilled(true); // Fill the button with the background color
+      button.setBackground(buttonBackgroundColor); // Use the color defined for all buttons
       button.setForeground(buttonGTexts); // Text color for buttons
 //      button.setBorder(BorderFactory.createLineBorder()); // Optional: add a border with transparency
       button.setFont(textFont); // Set font size for all buttons

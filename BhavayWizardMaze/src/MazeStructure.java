@@ -101,6 +101,7 @@ public class MazeStructure {
                         if ((i == 3 || i == 5) && (j == 3 || j == 5)) {
 
                             // place wizard
+                        	
                             addWizards(tileButton);
                         } else {
 
@@ -200,7 +201,7 @@ public class MazeStructure {
         int randomNumber = 2;
 
         while (wizardsUniqueNumbers.size() <= 4) {
-            randomNumber = (int) (Math.random() * 4); // Generates a number between 0 and 21
+            randomNumber = (int) (Math.random() * 4); // Generates a number between 0 and 4 exlusive
             if (wizardsUniqueNumbers.add(randomNumber)) {
                 break; // if unq number found break loop and add the image
             } else {
@@ -225,6 +226,10 @@ public class MazeStructure {
         Image scaledWizard = wizard.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
 
+        ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
+        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
+        tile.add(treasureLabel);
         tile.add(wizardLabel);
         tile.setLayout(new GridBagLayout());
     }
