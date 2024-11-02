@@ -226,9 +226,13 @@ public class MazeStructure {
         Image scaledWizard = wizard.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
 
+        
+        // code to test how it will look with component and wizard on same tile 
         ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
         Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
+        
+        
         tile.add(treasureLabel);
         tile.add(wizardLabel);
         tile.setLayout(new GridBagLayout());

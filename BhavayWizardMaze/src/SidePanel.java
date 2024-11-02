@@ -22,13 +22,16 @@ public class SidePanel extends JPanel {
     private String rotatorImage = "Images/rotator.png";
     private Color buttonBackgroundColor = new Color(63, 53, 53, 1); // Button background color
     private Color buttonGTexts = new Color(183, 18, 128, 255); // Button text color
+    private Color buttonBorderC = new Color(54, 8, 204, 255); // Button text color
     private Color greenWTexts = new Color(63, 181, 13, 255); // Button text color
     private Color redWTexts = new Color(181, 13, 13, 255); // Button text color
     private Color blueWTexts = new Color(18, 29, 183,255); // Button text color
     private Color yellowWTexts = new Color(225, 219, 25, 255); // Button text color
-    private Font textFont = new Font("Arial", Font.BOLD, 24);
+    private Font textFont = new Font("Arial", Font.BOLD, 32);
+    private Dimension buttonDimension = new Dimension(120,70);
 //    private Map<String, Color> players;
     private ArrayList<Player> playersList = new ArrayList<Player>(4);
+    private String wandImage = "Images/Wands1.png";
 
 //    /**
 //     * Constructs a SidePanel and initializes its components.
@@ -236,6 +239,10 @@ public class SidePanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
         doneButtonAdd(gbc);  
+        
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        wandsButtonAdd(gbc,3);  
 
     	
     }
@@ -345,11 +352,31 @@ public class SidePanel extends JPanel {
         add(currentPlayerMazePiecePanel, gbc);
     }
     
+    
+    public void wandsButtonAdd(GridBagConstraints gbc, int wands) {
+    	
+    	JButton wandsButton = new JButton();
+    	wandsButton.setPreferredSize(buttonDimension);
+    	
+    	
+    	for (int i =0 ; i < wands; i++) {
+    		 ImageIcon wand = new ImageIcon(wandImage); // default
+             Image scaledWand = wand.getImage().getScaledInstance(46, 43, Image.SCALE_SMOOTH);
+             JLabel wandLabel = new JLabel(new ImageIcon(scaledWand));
+      	
+             wandsButton.add(wandLabel);
+    	}
+    	  
+           styleButton(wandsButton);
+           wandsButton.setLayout(new GridBagLayout());
+    	add(wandsButton,gbc);
+    }
+    
     public void doneButtonAdd(GridBagConstraints gbc ) {
     	
     	
     	JButton doneButton = new JButton("Done");
-
+    	doneButton.setPreferredSize(buttonDimension);
     	styleButton(doneButton);
     	
     	
@@ -358,11 +385,17 @@ public class SidePanel extends JPanel {
     }
     
     private void styleButton(JButton button) {
-      button.setOpaque(true); // Ensure the button is opaque to apply background color
+      button.setOpaque(false); // Ensure the button is opaque to apply background color
       button.setContentAreaFilled(true); // Fill the button with the background color
       button.setBackground(buttonBackgroundColor); // Use the color defined for all buttons
       button.setForeground(buttonGTexts); // Text color for buttons
-//      button.setBorder(BorderFactory.createLineBorder()); // Optional: add a border with transparency
+      button.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, buttonBorderC)); // bronze-like color with transparency
       button.setFont(textFont); // Set font size for all buttons
+      // Center text in the button
+//      button.setHorizontalAlignment(SwingConstants.CENTER);
+//      button.setVerticalAlignment(SwingConstants.CENTER);
+
+      // Add padding between the text and the border
+      button.setMargin(new Insets(20, 20, 20, 20)); // Adjust padding as needed (top, left, bottom, right)
   }
 }
