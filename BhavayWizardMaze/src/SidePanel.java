@@ -8,6 +8,7 @@
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -15,9 +16,6 @@ import java.util.ArrayList;
 
 public class SidePanel extends JPanel {
     private JLabel spareTileLabel;
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-    private JTextArea chatBoxArea, chatInputArea;
-    private JScrollPane capturedPiecesScroll, chatScrollPane;
     private String extraMazePiece;
     private String rotatorImage = "Images/rotator.png";
     private Color buttonBackgroundColor = new Color(63, 53, 53, 1); // Button background color
@@ -27,189 +25,20 @@ public class SidePanel extends JPanel {
     private Color redWTexts = new Color(181, 13, 13, 255); // Button text color
     private Color blueWTexts = new Color(18, 29, 183,255); // Button text color
     private Color yellowWTexts = new Color(225, 219, 25, 255); // Button text color
-    private Font textFont = new Font("Arial", Font.BOLD, 32);
+    private Font textFont = new Font("Arial", Font.BOLD, 24);
     private Dimension buttonDimension = new Dimension(120,70);
 //    private Map<String, Color> players;
     private ArrayList<Player> playersList = new ArrayList<Player>(4);
     private String wandImage = "Images/Wands1.png";
-
-//    /**
-//     * Constructs a SidePanel and initializes its components.
-//     * The components include buttons, labels, chat area, and captured pieces display.
-//     */
-//    public SidePanel(String mazePiece) {
-//    	// to get the image addressm of the piece missiong 
-//        
-//        extraMazePiece = mazePiece;
-//
-//        // Set GridBagLayout and panel properties
-//        setLayout(new GridBagLayout());
-//        setOpaque(false); // transparent 
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        players = new HashMap<>(); // using hashmap to store the players name and their respective  color 
-//
-//        // Label for the current player's turn
-//        JLabel currentTurnLabel = new JLabel("Current Turn: Player 1");
-//        currentTurnLabel.setFont(new Font("Arial", Font.BOLD, 20)); // font
-//
-//        currentTurnLabel.setForeground(buttonTexts);
-//        currentTurnLabel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.BLUE));
-//        
-//        
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-////        gbc.gridwidth = 3;
-////        gbc.insets = new Insets(10, 10, 10, 10);
-//        //gbc.anchor = GridBagConstraints.NORTHWEST;
-//        add(currentTurnLabel, gbc);
-//
-//        // Player Names Section
-//        JPanel playerNamesPanel = new JPanel();
-//        playerNamesPanel.setLayout(new BoxLayout(playerNamesPanel, BoxLayout.Y_AXIS));
-//        playerNamesPanel.setOpaque(false); // transparent
-//
-//        gbc.gridx = 1;
-//        gbc.gridy = 0;
-////        gbc.gridwidth = 3;
-////        gbc.weightx = 1.0;
-////        gbc.insets = new Insets(10, 0, 10, 0);
-////        gbc.anchor = GridBagConstraints.CENTER;
-//        add(playerNamesPanel, gbc);
-//
-//        // Spare tile (Image)
-//        spareTileLabel = new JLabel(); // Load the actual image here
-//        ImageIcon extraTile = new ImageIcon(extraMazePiece);
-//        Image scaledImage = extraTile.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Increased size
-//        spareTileLabel.setIcon(new ImageIcon(scaledImage));
-//        spareTileLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        spareTileLabel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.BLUE));
-//
-//        // Arrow buttons with reasonable size
-//        leftArrowButton = new JButton("<<");
-//        rightArrowButton = new JButton(">>");
-//        styleButton(leftArrowButton);
-//        styleButton(rightArrowButton);
-//
-//        leftArrowButton.setPreferredSize(new Dimension(60, 40)); // Set size
-//        rightArrowButton.setPreferredSize(new Dimension(60, 40)); // Set size
-//        leftArrowButton.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.BLUE));
-//        rightArrowButton.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.BLUE));
-//        // Add spare tile and arrow buttons in GridBagLayout
-//        gbc.gridx = 1;
-//        gbc.gridy = 2;
-//        gbc.gridwidth = 2;
-//        gbc.insets = new Insets(5, 5, 5, 5); // Padding around the tile
-//        gbc.anchor = GridBagConstraints.CENTER;
-//        add(spareTileLabel, gbc);
-//
-//        gbc.gridx = 0;
-//        gbc.gridy = 3;
-//        gbc.gridwidth = 1;
-//        gbc.insets = new Insets(10, 0, 10, 10);
-//        gbc.anchor = GridBagConstraints.WEST;
-//        add(leftArrowButton, gbc);
-//
-//        gbc.gridx = 2;
-//        gbc.gridy = 3;
-//        gbc.insets = new Insets(10, 10, 10, 0);
-//        gbc.anchor = GridBagConstraints.EAST;
-//        add(rightArrowButton, gbc);
-//
-//        // Done Button
-//        doneButton = new JButton("Done");
-//        styleButton(doneButton);
-//        doneButton.setPreferredSize(new Dimension(100, 50)); // Size of the Done button
-//
-//        gbc.gridx = 0;
-//        gbc.gridy = 4;
-//        gbc.gridwidth = 3;
-//        gbc.insets = new Insets(10, 0, 10, 0); // More padding for better orientation
-//        gbc.anchor = GridBagConstraints.CENTER;
-//        add(doneButton, gbc);
-//
-//
-//        // Shuffle and Wands Buttons
-//        shuffleButton = new JButton("Shuffle");
-//        wandsButton = new JButton("Wands");
-//        styleButton(shuffleButton);
-//        styleButton(wandsButton);
-//
-//        shuffleButton.setPreferredSize(new Dimension(110, 75)); // Size of Shuffle button
-//        wandsButton.setPreferredSize(new Dimension(110, 75)); // Size of Wands button
-//
-//        JPanel shuffleWandsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5)); // Centered buttons
-//        shuffleWandsPanel.setOpaque(false);
-//        shuffleWandsPanel.add(shuffleButton);
-//        shuffleWandsPanel.add(wandsButton);
-//
-//        gbc.gridx = 0;
-//        gbc.gridy = 6;
-//        gbc.gridwidth = 3;
-//        gbc.insets = new Insets(10, 0, 10, 0);
-//        gbc.anchor = GridBagConstraints.CENTER;
-//        add(shuffleWandsPanel, gbc);
-//
-//        // Chat Box at the bottom
-//        chatBoxArea = new JTextArea(20,30); // Chat box size
-////        chatBoxArea.setWrapStyleWord(true);
-////        chatBoxArea.setLineWrap(true);
-//        chatBoxArea.setEditable(false);
-////        chatBoxArea.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
-//        chatBoxArea.setFont(new Font("Arial", Font.PLAIN, 32)); // Larger font for chat
-//
-//        chatScrollPane = new JScrollPane(chatBoxArea);
-//        chatScrollPane.setPreferredSize(new Dimension(200, 100)); // Chat scroll pane size
-//
-//        gbc.gridx = 0;
-//        gbc.gridy = 7;
-//        gbc.gridwidth = 3;
-//        gbc.insets = new Insets(10, 0, 10, 0);
-//        add(chatScrollPane, gbc);
-//
-//        // Input for chat and Send button
-//        chatInputArea = new JTextArea(2, 20);
-//        chatInputArea.setBackground(new Color(255, 255, 255, 200)); // Slightly transparent background for input
-//        chatInputArea.setLineWrap(true);
-//        chatInputArea.setFont(new Font("Arial", Font.PLAIN, 14));
-//
-//        sendButton = new JButton("Send");
-//        styleButton(sendButton);
-//        sendButton.setPreferredSize(new Dimension(70, 40)); // Size of the send button
-//
-//        JPanel chatInputPanel = new JPanel(new BorderLayout());
-//        chatInputPanel.add(new JScrollPane(chatInputArea), BorderLayout.CENTER);
-//        chatInputPanel.add(sendButton, BorderLayout.EAST);
-//
-//        gbc.gridx = 0;
-//        gbc.gridy = 8;
-//        gbc.gridwidth = 3;
-//        gbc.insets = new Insets(10, 0, 10, 0);
-//        add(chatInputPanel, gbc);
-//    }
-//
-//    /**
-//     * Reusable method to apply common button styles.
-//     *
-//     * @param button The button to style.
-//     */
-//    private void styleButton(JButton button) {
-//        button.setOpaque(true); // Ensure the button is opaque to apply background color
-//        button.setContentAreaFilled(true); // Fill the button with the background color
-//        button.setBackground(buttonColor); // Use the color defined for all buttons
-//        button.setForeground(buttonTexts); // Text color for buttons
-//        button.setBorder(BorderFactory.createLineBorder(buttonColor)); // Optional: add a border with transparency
-//        button.setFont(new Font("Arial", Font.BOLD, 24)); // Set font size for all buttons
-//    }
-//
-//    
-//
-//   
-
+    private JPanel topSidePanel = new JPanel();
    
     public SidePanel(String mazePiece) {
 //    	 to get the image addressm of the piece missing 
-      
-    	 setLayout(new GridBagLayout());
+      topSidePanel.setLayout(new GridBagLayout());
+      topSidePanel.setOpaque(false);
+//		topSidePanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.blue));
+
+    	 setLayout(new BorderLayout());
          setOpaque(false); // transparent 
          GridBagConstraints gbc = new GridBagConstraints();
     	 /// test image of wizard will update in mvc what to change remove below line so that code supply which current player instaeed of green 
@@ -225,23 +54,33 @@ public class SidePanel extends JPanel {
         playersList.add(player4);
 
         
-         
-         
-         
+        gbc.insets = new Insets(80, -10, 0, 30); // 20px top margin, no padding on other sides
         gbc.gridx = 0;
         gbc.gridy = 0;
-        currentPlayerMazePiecePanelAdd(mazePiece, player3 , gbc);
-         
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+
         playersListAdd(gbc,2);
         
+         
+         
+        gbc.insets = new Insets(80,20, 0, 0); // 20px top margin, no padding on other sides
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
+        currentPlayerMazePiecePanelAdd(mazePiece, player3 , gbc);
+         
+        
+        gbc.insets = new Insets(0, -10, 0, 0); // 20px top margin, no padding on other sides
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.gridwidth = 1;
         doneButtonAdd(gbc);  
         
+        gbc.insets = new Insets(0, -50, 0, 0); // 20px top margin, no padding on other sides
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.gridwidth = 1;
         wandsButtonAdd(gbc,3);  
 
         gbc.gridx = 1;
@@ -249,20 +88,26 @@ public class SidePanel extends JPanel {
         player1.setRecipe(2,5,7);
         player1.addCapturedPiece(1);
         player1.addCapturedPiece(13);
-        player1.addCapturedPiece(5);
-        player1.addCapturedPiece(6);
-        player1.addCapturedPiece(3);
-        player1.addCapturedPiece(2);
-        player1.addCapturedPiece(8);
-        player1.addCapturedPiece(9);
-        player1.addCapturedPiece(6);
-        player1.addCapturedPiece(3);
-        player1.addCapturedPiece(2);
-        player1.addCapturedPiece(8);
-        player1.addCapturedPiece(9);
-
+        player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);
 
         recipePiecesCapturedPanelAdd(gbc,player1);  
+        
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        chatPanelAdd(gbc, player1);
+        
+        
+        add(topSidePanel,BorderLayout.CENTER);
+
         
     }
     
@@ -301,10 +146,9 @@ public class SidePanel extends JPanel {
     	
     	// below for peicecapturedLabel
     	
-    	JLabel piecesCapturedPanel = new JLabel();
+    	JPanel piecesCapturedPanel = new JPanel();
     	
     	
-    	piecesCapturedPanel.setPreferredSize(buttonDimension);
     	
     	
     	for (int i =0 ; i < currentPlayer.getCapturedPieces().length; i++) {
@@ -315,6 +159,9 @@ public class SidePanel extends JPanel {
              piecesCapturedPanel.add(piece1Label);
     	
     	}
+    	
+//    	piecesCapturedPanel.setPreferredSize(new Dimension(550, 70)); // Set a larger preferred width for scrolling
+    
     	piecesCapturedPanel.setLayout(new GridBagLayout());
     	piecesCapturedPanel.setOpaque(false);
 
@@ -328,14 +175,33 @@ public class SidePanel extends JPanel {
         scrollPane.setOpaque(false);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-//        scrollPane.setPreferredSize(new Dimension(200,70));
+        scrollPane.setPreferredSize(new Dimension(150,70));
 ////    	gbc2.gridx = 1;
 //    	gbc2.gridy = 1;
 //        gbc2.insets= new Insets(5,5,5,5);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
         recipePiecesCapturedPanel.add(scrollPane,gbc2);
     	
+        
+        
+        
+        
+        JLabel recipePieceTextLabel = new JLabel("Recipe/Pieces Captured");
+        
+      
+        recipePieceTextLabel.setForeground(buttonGTexts);
+        recipePieceTextLabel.setFont(textFont);
+        gbc2.gridx = 0;
+    	gbc2.gridy = 1;
+    	gbc2.gridwidth = 2;
+        
+    	recipePiecesCapturedPanel.add(recipePieceTextLabel,gbc2);
+
     	
-    	add(recipePiecesCapturedPanel,gbc);
+        topSidePanel.add(recipePiecesCapturedPanel,gbc);
+        
+        
     }
     
     public void playersListAdd(GridBagConstraints gbc, int componentNumber) {
@@ -380,11 +246,11 @@ public class SidePanel extends JPanel {
 
   
         
-        add(playersListPanel, gbc);
+        topSidePanel.add(playersListPanel, gbc);
 
         
         
-        playersListPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.red));;
+//        playersListPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.red));;
 
     	
     }
@@ -426,19 +292,19 @@ public class SidePanel extends JPanel {
         // rotator button 
         JButton rotatorButton = new JButton();
         ImageIcon rotator = new ImageIcon(rotatorImage);
-        Image scaledRotatorImage = rotator.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Increased size
+        Image scaledRotatorImage = rotator.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
         rotatorButton.setIcon(new ImageIcon(scaledRotatorImage));
         rotatorButton.setOpaque(false);
         rotatorButton.setContentAreaFilled(false);
         rotatorButton.setBorderPainted(false);
-        gbc2.gridx = 0;
-        gbc2.gridy = 2;
+        gbc2.gridx = 2;
+        gbc2.gridy = 1;
         currentPlayerMazePiecePanel.add(rotatorButton,gbc2);
 
-        currentPlayerMazePiecePanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.blue));;
+//        currentPlayerMazePiecePanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.blue));;
 
 
-        add(currentPlayerMazePiecePanel, gbc);
+        topSidePanel.add(currentPlayerMazePiecePanel, gbc);
     }
     
     
@@ -476,7 +342,7 @@ public class SidePanel extends JPanel {
            
            wandsButtonPanel.add(wandsLabel,gbc2);
 
-    	add(wandsButtonPanel,gbc);
+           topSidePanel.add(wandsButtonPanel,gbc);
     }
     
     public void doneButtonAdd(GridBagConstraints gbc ) {
@@ -487,7 +353,7 @@ public class SidePanel extends JPanel {
     	styleButton(doneButton);
     	
     	
-    	add(doneButton,gbc);
+    	topSidePanel.add(doneButton,gbc);
     	
     }
     
@@ -503,6 +369,59 @@ public class SidePanel extends JPanel {
 //      button.setVerticalAlignment(SwingConstants.CENTER);
 
       // Add padding between the text and the border
-      button.setMargin(new Insets(20, 20, 20, 20)); // Adjust padding as needed (top, left, bottom, right)
+//      button.setMargin(new Insets(20, 20, 20, 20)); // Adjust padding as needed (top, left, bottom, right)
   }
+
+
+    public void chatPanelAdd(GridBagConstraints gbc, Player currentPlayer) {
+
+        JPanel chatPanel = new JPanel();
+        chatPanel.setOpaque(false);
+        chatPanel.setLayout(new BorderLayout());
+        chatPanel.setBorder(BorderFactory.createMatteBorder(3,2,0,2, Color.black));
+
+        JTextArea chatArea = new JTextArea(8, 15); // 15 rows, 15 columns
+        chatArea.setOpaque(false);
+        chatArea.setEditable(false); // Users can't edit the chat area directly
+        chatArea.setFont(textFont);
+
+        JScrollPane chatScroll = new JScrollPane(chatArea); // Add scrolling for the chat area
+        chatScroll.setOpaque(false);
+        chatScroll.getViewport().setOpaque(false);
+        chatPanel.add(chatScroll, BorderLayout.CENTER); // Place the chat area in the center of the panel
+        
+
+        JTextField chatInput = new JTextField();
+        chatInput.setForeground(currentPlayer.getColor());
+        chatInput.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.red));
+
+        chatInput.setFont(textFont);
+        chatInput.setOpaque(false);
+
+        JButton sendButton = new JButton("Send");
+        styleButton(sendButton);
+
+        JPanel chatInputPanel = new JPanel(new BorderLayout());
+        chatInputPanel.setOpaque(false);
+        chatInputPanel.add(chatInput, BorderLayout.CENTER); // Input field takes most of the space
+        chatInputPanel.add(sendButton, BorderLayout.EAST); // Send button is aligned to the right
+
+        chatPanel.add(chatInputPanel, BorderLayout.SOUTH);
+        add(chatPanel, BorderLayout.SOUTH);
+
+        // ActionListener for sending the message
+        ActionListener sendMessage = e -> {
+            String message = chatInput.getText().trim();
+            if (!message.isEmpty()) {
+                chatArea.append(currentPlayer.getName() + ": " + message + "\n"); // Display the message with player's name
+                chatArea.setForeground(currentPlayer.getColor());
+                chatInput.setText(""); // Clear the input field after sending
+                chatArea.setCaretPosition(chatArea.getDocument().getLength()); // Scroll to the bottom of the chat area
+            }
+        };
+
+        // Add action listener to both send button and chat input field (Enter key)
+        sendButton.addActionListener(sendMessage);
+        chatInput.addActionListener(sendMessage); // Pressing Enter will also send the message
+    }
 }

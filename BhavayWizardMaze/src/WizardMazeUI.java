@@ -37,11 +37,11 @@ public class WizardMazeUI {
 
 		// Create and configure the maze panel
 		JPanel mazePanel = createMazePanel();
-		mazePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.green));
+//		mazePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.green));
 		
 		SidePanel sidePanel = new SidePanel(extraTile); // Create the side panel
 		
-		sidePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.red));
+//		sidePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.red));
 
 		// Create the background label with the background image
 		JLabel backgroundLabel = createBackgroundLabel(mazePanel, sidePanel);
@@ -96,7 +96,7 @@ public class WizardMazeUI {
 		// Creating a panel for margin for the maze 
 		JPanel wrapperPanel = new JPanel(new BorderLayout());
 		
-		wrapperPanel.setBorder(BorderFactory.createMatteBorder(1, 20, 1, 1, Color.yellow)); // 20 pixels left margin
+//		wrapperPanel.setBorder(BorderFactory.createMatteBorder(1, 20, 1, 1, Color.yellow)); // 20 pixels left margin
 		wrapperPanel.setOpaque(false);
 		
 		wrapperPanel.add(mazePanel, BorderLayout.CENTER);
