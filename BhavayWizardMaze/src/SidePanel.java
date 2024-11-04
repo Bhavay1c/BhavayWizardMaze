@@ -244,10 +244,99 @@ public class SidePanel extends JPanel {
         gbc.gridy = 1;
         wandsButtonAdd(gbc,3);  
 
-    	
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        player1.setRecipe(2,5,7);
+        player1.addCapturedPiece(1);
+        player1.addCapturedPiece(13);
+        player1.addCapturedPiece(5);
+        player1.addCapturedPiece(6);
+        player1.addCapturedPiece(3);
+        player1.addCapturedPiece(2);
+        player1.addCapturedPiece(8);
+        player1.addCapturedPiece(9);
+        player1.addCapturedPiece(6);
+        player1.addCapturedPiece(3);
+        player1.addCapturedPiece(2);
+        player1.addCapturedPiece(8);
+        player1.addCapturedPiece(9);
+
+
+        recipePiecesCapturedPanelAdd(gbc,player1);  
+        
     }
     
     
+    public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc,Player currentPlayer) {
+    	
+    	JPanel recipePiecesCapturedPanel = new JPanel();
+    	recipePiecesCapturedPanel.setLayout(new GridBagLayout());
+    	recipePiecesCapturedPanel.setOpaque(false);
+    	
+    	GridBagConstraints gbc2 = new GridBagConstraints();
+    	
+    	JButton recipeButton = new JButton();
+    	
+    	recipeButton.setPreferredSize(buttonDimension);
+    	
+    	
+    	for (int i =0 ; i < currentPlayer.getRecipe().length; i++) {
+    		 ImageIcon recipe1 = new ImageIcon("Images/green_" + currentPlayer.getRecipe()[i] + ".png"); // default
+             Image scaledRecipe1 = recipe1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+             JLabel recipe1Label = new JLabel(new ImageIcon(scaledRecipe1));
+    	
+             recipeButton.add(recipe1Label);
+    	
+    	}
+    	
+    	
+    	 
+        styleButton(recipeButton);
+
+    	recipeButton.setLayout(new GridBagLayout());
+    	gbc2.gridx = 0;
+    	gbc2.gridy = 0;
+    	recipePiecesCapturedPanel.add(recipeButton,gbc2);
+    	
+    	
+    	// below for peicecapturedLabel
+    	
+    	JLabel piecesCapturedPanel = new JLabel();
+    	
+    	
+    	piecesCapturedPanel.setPreferredSize(buttonDimension);
+    	
+    	
+    	for (int i =0 ; i < currentPlayer.getCapturedPieces().length; i++) {
+    		 ImageIcon piece1 = new ImageIcon("Images/green_" + currentPlayer.getCapturedPieces()[i] + ".png"); // default
+             Image scaledPiece1 = piece1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+             JLabel piece1Label = new JLabel(new ImageIcon(scaledPiece1));
+
+             piecesCapturedPanel.add(piece1Label);
+    	
+    	}
+    	piecesCapturedPanel.setLayout(new GridBagLayout());
+    	piecesCapturedPanel.setOpaque(false);
+
+    	
+    	gbc2.gridx = 1;
+    	gbc2.gridy = 0;
+    	
+//    	recipePiecesCapturedPanel.add(piecesCapturedPanel,gbc2);
+//    	 // Create a JScrollPane for horizontal scrolling
+        JScrollPane scrollPane = new JScrollPane(piecesCapturedPanel);
+        scrollPane.setOpaque(false);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+//        scrollPane.setPreferredSize(new Dimension(200,70));
+////    	gbc2.gridx = 1;
+//    	gbc2.gridy = 1;
+//        gbc2.insets= new Insets(5,5,5,5);
+        recipePiecesCapturedPanel.add(scrollPane,gbc2);
+    	
+    	
+    	add(recipePiecesCapturedPanel,gbc);
+    }
     
     public void playersListAdd(GridBagConstraints gbc, int componentNumber) {
     	
@@ -354,6 +443,14 @@ public class SidePanel extends JPanel {
     
     
     public void wandsButtonAdd(GridBagConstraints gbc, int wands) {
+    	JPanel wandsButtonPanel = new JPanel();
+    	wandsButtonPanel.setLayout(new GridBagLayout());
+    	wandsButtonPanel.setOpaque(false);
+    	
+    	GridBagConstraints gbc2 = new GridBagConstraints();
+    	
+    	gbc2.gridx = 0;
+    	gbc2.gridy = 0;
     	
     	JButton wandsButton = new JButton();
     	wandsButton.setPreferredSize(buttonDimension);
@@ -369,7 +466,17 @@ public class SidePanel extends JPanel {
     	  
            styleButton(wandsButton);
            wandsButton.setLayout(new GridBagLayout());
-    	add(wandsButton,gbc);
+           wandsButtonPanel.add(wandsButton,gbc2);
+           
+           JLabel wandsLabel = new JLabel("Wands");
+           wandsLabel.setForeground(buttonGTexts);
+           wandsLabel.setFont(textFont);
+           gbc2.gridx = 0;
+       	   gbc2.gridy = 1;
+           
+           wandsButtonPanel.add(wandsLabel,gbc2);
+
+    	add(wandsButtonPanel,gbc);
     }
     
     public void doneButtonAdd(GridBagConstraints gbc ) {

@@ -12,8 +12,9 @@ public class Player {
     // Attributes
     private String name;          // Player's name
     private int uniqueNumber;     // Unique identifier for the player
-    private int[] capturedPieces = new int[20];    // Count of pieces captured by the player
-    private int[] recipe;
+    private int[] capturedPieces = new int[21];    // Count of pieces captured by the player 21 is maximum pieces capturable
+    private int[] recipe = new int [3];
+    private int totalPiece  = 0;
     
     private String imageAddress;
     private Color color;
@@ -22,6 +23,7 @@ public class Player {
         this.name = name;
         this.uniqueNumber = uniqueNumber;
         this.capturedPieces[0] = 0; // Initialized to 0
+        
         this.color = color;
         this.imageAddress = imageAddress;
         
@@ -39,10 +41,32 @@ public class Player {
         return uniqueNumber;
     }
 
+    public int[] getRecipe() {
+    	
+    	return recipe ; 
+    }
+    
+    public void setRecipe(int ... recipeComponents) {
+    	this.recipe = recipeComponents;
+    }
+    
     public int[] getCapturedPieces() {
         return capturedPieces;
     }
 
+    public boolean addCapturedPiece(int piece) {
+    
+    	if(totalPiece<=21) {
+    		capturedPieces[totalPiece++] = piece;
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    	
+    	
+    	
+    }
     public Color getColor() {
         return color;
     }
