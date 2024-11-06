@@ -14,6 +14,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -27,6 +28,69 @@ public class ViewWizardMazeUI {
 	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
 	private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
 	private String extraTile;
+	private ViewMazeStructure mazeStructure = new ViewMazeStructure();
+	// Declare all menu items as private variables
+	private JMenuItem saveItem = createMenuItem("Save");
+	private JMenuItem reloadItem = createMenuItem("Reload");
+	private JMenuItem newGameItem = createMenuItem("New Game");
+	private JMenuItem changeNameItem = createMenuItem("Change Name");
+	private JMenuItem invitePlayerItem = createMenuItem("Invite Player");
+	private JMenuItem englishItem =createMenuItem("English");
+	private JMenuItem chineseItem = createMenuItem("Chinese");
+	private JMenuItem aboutItem = createMenuItem("About (Information about Developers)");
+	private JMenuItem gameRulesItem = createMenuItem("Game Rules");
+	private JMenuItem hostItem = createMenuItem("Host");
+	private JMenuItem connectItem = createMenuItem("Connect");
+	private JMenuItem disconnectItem = createMenuItem("Disconnect");
+
+	// Getter methods for each menu item
+	public JMenuItem getSaveItem() {
+	    return saveItem;
+	}
+
+	public JMenuItem getReloadItem() {
+	    return reloadItem;
+	}
+
+	public JMenuItem getNewGameItem() {
+	    return newGameItem;
+	}
+
+	public JMenuItem getChangeNameItem() {
+	    return changeNameItem;
+	}
+
+	public JMenuItem getInvitePlayerItem() {
+	    return invitePlayerItem;
+	}
+
+	public JMenuItem getEnglishItem() {
+	    return englishItem;
+	}
+
+	public JMenuItem getChineseItem() {
+	    return chineseItem;
+	}
+
+	public JMenuItem getAboutItem() {
+	    return aboutItem;
+	}
+
+	public JMenuItem getGameRulesItem() {
+	    return gameRulesItem;
+	}
+
+	public JMenuItem getHostItem() {
+	    return hostItem;
+	}
+
+	public JMenuItem getConnectItem() {
+	    return connectItem;
+	}
+
+	public JMenuItem getDisconnectItem() {
+	    return disconnectItem;
+	}
 
 	/**
 	 * Creates and displays the main GUI of the Wizard's Maze game.
@@ -76,9 +140,18 @@ public class ViewWizardMazeUI {
 	private JPanel createMazePanel() {
 		JPanel mazePanel = new JPanel();
 		mazePanel.setOpaque(false);
-		ViewMazeStructure mazeStructure = new ViewMazeStructure();
 		extraTile = mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
 		return mazePanel;
+	}
+	
+//	public JButton[][] getViewMazeStructure() {
+//		return mazeStructure.mazePattern;
+//		
+//	}
+	
+	public ViewMazeStructure getViewMazeStructure() {
+		return mazeStructure;
+		
 	}
 
 	/**
@@ -110,75 +183,59 @@ public class ViewWizardMazeUI {
 	 * 
 	 * @return The JMenuBar object containing all the menus.
 	 */
+	// Declare all menu items as public variables
+
+
 	public JMenuBar createMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
-		menuBar.setBorder(null);
+	    JMenuBar menuBar = new JMenuBar();
+	    menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
+	    menuBar.setBorder(null);
 
-		// File Menu
-		JMenu fileMenu = new JMenu("File");
-		fileMenu.setForeground(menuColor);
-		fileMenu.setFont(menuFont); // Use the menuFont variable
-		
-		JMenuItem saveItem = createMenuItem("Save");
-		JMenuItem reloadItem = createMenuItem("Reload");
-		fileMenu.add(saveItem);
-		fileMenu.add(reloadItem);
+	    // File Menu
+	    JMenu fileMenu = new JMenu("File");
+	    fileMenu.setForeground(menuColor);
+	    fileMenu.setFont(menuFont); // Use the menuFont variable
+	    fileMenu.add(saveItem);
+	    fileMenu.add(reloadItem);
 
-		// Game Menu
-		JMenu gameMenu = new JMenu("Game");
-		gameMenu.setForeground(menuColor);
-		gameMenu.setFont(menuFont);
+	    // Game Menu
+	    JMenu gameMenu = new JMenu("Game");
+	    gameMenu.setForeground(menuColor);
+	    gameMenu.setFont(menuFont);
+	    gameMenu.add(newGameItem);
+	    gameMenu.add(changeNameItem);
+	    gameMenu.add(invitePlayerItem);
 
-		JMenuItem newGameItem = createMenuItem("New Game");
-		JMenuItem changeNameItem = createMenuItem("Change Name");
-		JMenuItem invitePlayerItem = createMenuItem("Invite Player");
-		JMenuItem historyItem = createMenuItem("History");
-		gameMenu.add(newGameItem);
-		gameMenu.add(changeNameItem);
-		gameMenu.add(invitePlayerItem);
-		gameMenu.add(historyItem);
+	    // Language Menu
+	    JMenu languageMenu = new JMenu("Language");
+	    languageMenu.setForeground(menuColor);
+	    languageMenu.setFont(menuFont);
+	    languageMenu.add(englishItem);
+	    languageMenu.add(chineseItem);
 
-		// Language Menu
-		JMenu languageMenu = new JMenu("Language");
-		languageMenu.setForeground(menuColor);
-		languageMenu.setFont(menuFont);
+	    // Help Menu
+	    JMenu helpMenu = new JMenu("Help");
+	    helpMenu.setForeground(menuColor);
+	    helpMenu.setFont(menuFont);
+	    helpMenu.add(aboutItem);
+	    helpMenu.add(gameRulesItem);
 
-		JMenuItem englishItem = createMenuItem("English");
-		JMenuItem chineseItem = createMenuItem("Chinese");
-		languageMenu.add(englishItem);
-		languageMenu.add(chineseItem);
+	    // Network Menu
+	    JMenu networkMenu = new JMenu("Network");
+	    networkMenu.setForeground(menuColor);
+	    networkMenu.setFont(menuFont);
+	    networkMenu.add(hostItem);
+	    networkMenu.add(connectItem);
+	    networkMenu.add(disconnectItem);
 
-		// Help Menu
-		JMenu helpMenu = new JMenu("Help");
-		helpMenu.setForeground(menuColor);
-		helpMenu.setFont(menuFont);
+	    // Add all menus to the menu bar
+	    menuBar.add(fileMenu);
+	    menuBar.add(gameMenu);
+	    menuBar.add(languageMenu);
+	    menuBar.add(helpMenu);
+	    menuBar.add(networkMenu);
 
-		JMenuItem aboutItem = createMenuItem("About (Information about Developers)");
-		JMenuItem gameRulesItem = createMenuItem("Game Rules");
-		helpMenu.add(aboutItem);
-		helpMenu.add(gameRulesItem);
-
-		// Network Menu
-		JMenu networkMenu = new JMenu("Network");
-		networkMenu.setForeground(menuColor);
-		networkMenu.setFont(menuFont);
-
-		JMenuItem hostItem = createMenuItem("Host");
-		JMenuItem connectItem = createMenuItem("Connect");
-		JMenuItem disconnectItem = createMenuItem("Disconnect");
-		networkMenu.add(hostItem);
-		networkMenu.add(connectItem);
-		networkMenu.add(disconnectItem);
-
-		// Add all menus to the menu bar
-		menuBar.add(fileMenu);
-		menuBar.add(gameMenu);
-		menuBar.add(languageMenu);
-		menuBar.add(helpMenu);
-		menuBar.add(networkMenu);
-
-		return menuBar;
+	    return menuBar;
 	}
 
 	/**

@@ -81,7 +81,7 @@ public class ViewSidePanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        wandsButtonAdd(gbc,3);  
+        wandsButtonAdd(gbc,player1);  
 
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -308,7 +308,7 @@ public class ViewSidePanel extends JPanel {
     }
     
     
-    public void wandsButtonAdd(GridBagConstraints gbc, int wands) {
+    public void wandsButtonAdd(GridBagConstraints gbc, ModelPlayer currentPlayer) {
     	JPanel wandsButtonPanel = new JPanel();
     	wandsButtonPanel.setLayout(new GridBagLayout());
     	wandsButtonPanel.setOpaque(false);
@@ -322,7 +322,7 @@ public class ViewSidePanel extends JPanel {
     	wandsButton.setPreferredSize(buttonDimension);
     	
     	
-    	for (int i =0 ; i < wands; i++) {
+    	for (int i =0 ; i < currentPlayer.getNWands(); i++) {
     		 ImageIcon wand = new ImageIcon(wandImage); // default
              Image scaledWand = wand.getImage().getScaledInstance(46, 43, Image.SCALE_SMOOTH);
              JLabel wandLabel = new JLabel(new ImageIcon(scaledWand));

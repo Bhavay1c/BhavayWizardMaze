@@ -186,10 +186,10 @@ public class ViewMazeStructure {
      * @return A JLabel containing the specified icon.
      */
     private JButton createArrowButton(ImageIcon icon) {
-        JButton aLabel = new JButton(icon);
-        aLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0)); // Top, Left, Bottom, Right
+        JButton aButton = new JButton(icon);
+        aButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0)); // Top, Left, Bottom, Right
 
-        return aLabel;
+        return aButton;
     }
 
     /**
@@ -285,4 +285,27 @@ public class ViewMazeStructure {
 
         return extraTile;
     }
+    
+    
+    
+    public JButton getArrowNorthButton() {
+        return createArrowButton(new ImageIcon(arrowNorth));
+    }
+
+    public JButton getArrowSouthButton() {
+        return createArrowButton(new ImageIcon(arrowSouth));
+    }
+
+    public JButton getArrowWestButton() {
+        return createArrowButton(new ImageIcon(arrowWest));
+    }
+
+    public JButton getArrowEastButton() {
+        return createArrowButton(new ImageIcon(arrowEast));
+    }
+
+    public JButton[] getArrowButtons() {
+        return new JButton[]{getArrowNorthButton(), getArrowSouthButton(), getArrowWestButton(), getArrowEastButton()};
+    }
+
 }
