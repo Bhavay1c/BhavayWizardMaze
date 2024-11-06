@@ -8,18 +8,23 @@ import java.awt.Color;
  * @professor Daniel Cormeir
  */
 
-public class Player {
+public class ModelPlayer {
     // Attributes
     private String name;          // Player's name
     private int uniqueNumber;     // Unique identifier for the player
     private int[] capturedPieces = new int[21];    // Count of pieces captured by the player 21 is maximum pieces capturable
     private int[] recipe = new int [3];
     private int totalPiece  = 0;
+    private int totalScore = 0;
+    private int nWands = 0;
+    
     
     private String imageAddress;
     private Color color;
+    
+    
     // Constructor
-    public Player(String name, int uniqueNumber, Color color, String imageAddress) {
+    public ModelPlayer(String name, int uniqueNumber, Color color, String imageAddress) {
         this.name = name;
         this.uniqueNumber = uniqueNumber;
         this.capturedPieces[0] = 0; // Initialized to 0
@@ -29,6 +34,29 @@ public class Player {
         
     }
 
+    // method to get the wands 
+    public int getNWands() {
+    	return nWands;
+    }
+    
+ // method to set the wands 
+    public void setNWands(int wands) {
+    	this.nWands = wands;
+    }
+    
+    // method to dectrease the wand
+    public boolean wandsUse() {
+    	
+    	if(nWands>0) {
+    		nWands--;
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    	
+    }
+    
     // Getters
     public String getName() {
         return name;
@@ -43,7 +71,8 @@ public class Player {
 
     public int[] getRecipe() {
     	
-    	return recipe ; 
+    	int [] copyArr = recipe; // temp variable to return it as not to modify the content of the original array
+    	return copyArr ; 
     }
     
     public void setRecipe(int ... recipeComponents) {
@@ -51,7 +80,10 @@ public class Player {
     }
     
     public int[] getCapturedPieces() {
-        return capturedPieces;
+    	
+    	int [] copyArr = capturedPieces; // temp variable to return it as not to modify the content of the original array
+
+        return  copyArr;
     }
 
     public boolean addCapturedPiece(int piece) {
@@ -80,7 +112,40 @@ public class Player {
         this.uniqueNumber = uniqueNumber;
     }
 
-   
+    
+    /**
+     * Method to calculate the total score of the player
+     * Each ingredient captured is worth its face value in points (ie: the 3 ingredient is
+	    worth 3 points).
+		Each unspent wand is worth 3 points.		 
+		Each secret ingredient captured is worth 20 extra point
+     * 
+     * 
+     * @return
+     */
+   public int calculateTotalScore() {
+	   
+	   for(int i = 0; i<=totalPiece;i++) {
+		   
+		   
+		   totalScore += capturedPieces[i];
+		   
+		   for(int y = 0; y<3;y++) {
+			   if(capturedPieces[i]==recipe[y]) {
+				   totalScore+=20;
+				   
+			   }
+			   
+		   }
+		   
+		   
+	   }// outer for loop
+	   
+	   totalScore += nWands*3;
+	   
+	   
+	   return totalScore;
+   }
 
   
    

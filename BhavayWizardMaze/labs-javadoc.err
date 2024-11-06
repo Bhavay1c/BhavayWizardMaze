@@ -23,25 +23,28 @@ src\MazeStructure.java:15: warning: no comment
     public String[][] mazeTiles;
                       ^
 Generating doc\SidePanel.html...
-src\SidePanel.java:16: warning: no comment
+src\SidePanel.java:17: warning: no comment
 public class SidePanel extends JPanel {
        ^
-src\SidePanel.java:209: warning: no comment
+src\SidePanel.java:35: warning: no comment
     public SidePanel(String mazePiece) {
            ^
-src\SidePanel.java:392: warning: no comment
+src\SidePanel.java:376: warning: no comment
+    public void chatPanelAdd(GridBagConstraints gbc, Player currentPlayer) {
+                ^
+src\SidePanel.java:258: warning: no comment
     public void currentPlayerMazePiecePanelAdd(String mazePiece, Player cPlayer,  GridBagConstraints gbc  ) {
                 ^
-src\SidePanel.java:482: warning: no comment
+src\SidePanel.java:348: warning: no comment
     public void doneButtonAdd(GridBagConstraints gbc ) {
                 ^
-src\SidePanel.java:341: warning: no comment
+src\SidePanel.java:207: warning: no comment
     public void playersListAdd(GridBagConstraints gbc, int componentNumber) {
                 ^
-src\SidePanel.java:270: warning: no comment
+src\SidePanel.java:115: warning: no comment
     public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc,Player currentPlayer) {
                 ^
-src\SidePanel.java:445: warning: no comment
+src\SidePanel.java:311: warning: no comment
     public void wandsButtonAdd(GridBagConstraints gbc, int wands) {
                 ^
 Generating doc\WizardMazeMain.html...
@@ -52,82 +55,49 @@ public class WizardMazeUI {
 Generating doc\package-summary.html...
 Generating doc\package-tree.html...
 Generating doc\serialized-form.html...
-src\SidePanel.java:28: warning: no comment
+src\SidePanel.java:26: warning: no comment
     private Color blueWTexts = new Color(18, 29, 183,255); // Button text color
                   ^
-src\SidePanel.java:23: warning: no comment
+src\SidePanel.java:21: warning: no comment
     private Color buttonBackgroundColor = new Color(63, 53, 53, 1); // Button background color
                   ^
-src\SidePanel.java:25: warning: no comment
+src\SidePanel.java:23: warning: no comment
     private Color buttonBorderC = new Color(54, 8, 204, 255); // Button text color
                   ^
-src\SidePanel.java:31: warning: no comment
+src\SidePanel.java:29: warning: no comment
     private Dimension buttonDimension = new Dimension(120,70);
                       ^
-src\SidePanel.java:24: warning: no comment
+src\SidePanel.java:22: warning: no comment
     private Color buttonGTexts = new Color(183, 18, 128, 255); // Button text color
                   ^
-src\SidePanel.java:20: warning: no comment
-    private JScrollPane capturedPiecesScroll, chatScrollPane;
-                        ^
 src\SidePanel.java:19: warning: no comment
-    private JTextArea chatBoxArea, chatInputArea;
-                      ^
-src\SidePanel.java:19: warning: no comment
-    private JTextArea chatBoxArea, chatInputArea;
-                                   ^
-src\SidePanel.java:20: warning: no comment
-    private JScrollPane capturedPiecesScroll, chatScrollPane;
-                                              ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                    ^
-src\SidePanel.java:21: warning: no comment
     private String extraMazePiece;
                    ^
-src\SidePanel.java:26: warning: no comment
+src\SidePanel.java:24: warning: no comment
     private Color greenWTexts = new Color(63, 181, 13, 255); // Button text color
                   ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                                                                                ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                                                          ^
-src\SidePanel.java:33: warning: no comment
+src\SidePanel.java:31: warning: no comment
     private ArrayList<Player> playersList = new ArrayList<Player>(4);
                               ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                                            ^
-src\SidePanel.java:27: warning: no comment
+src\SidePanel.java:25: warning: no comment
     private Color redWTexts = new Color(181, 13, 13, 255); // Button text color
                   ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                                                                                                 ^
-src\SidePanel.java:22: warning: no comment
+src\SidePanel.java:20: warning: no comment
     private String rotatorImage = "Images/rotator.png";
                    ^
 src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                                                                                                                   ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                ^
-src\SidePanel.java:17: warning: no comment
     private JLabel spareTileLabel;
                    ^
-src\SidePanel.java:30: warning: no comment
-    private Font textFont = new Font("Arial", Font.BOLD, 32);
+src\SidePanel.java:28: warning: no comment
+    private Font textFont = new Font("Arial", Font.BOLD, 24);
                  ^
-src\SidePanel.java:34: warning: no comment
+src\SidePanel.java:33: warning: no comment
+    private JPanel topSidePanel = new JPanel();
+                   ^
+src\SidePanel.java:32: warning: no comment
     private String wandImage = "Images/Wands1.png";
                    ^
-src\SidePanel.java:18: warning: no comment
-    private JButton doneButton, shuffleButton, wandsButton, recipeButton, piecesCapturedButton, leftArrowButton, rightArrowButton, sendButton;
-                                               ^
-src\SidePanel.java:29: warning: no comment
+src\SidePanel.java:27: warning: no comment
     private Color yellowWTexts = new Color(225, 219, 25, 255); // Button text color
                   ^
 Generating doc\overview-tree.html...
@@ -138,4 +108,4 @@ Generating doc\index-all.html...
 Generating doc\index.html...
 Generating doc\help-doc.html...
 2 errors
-37 warnings
+27 warnings

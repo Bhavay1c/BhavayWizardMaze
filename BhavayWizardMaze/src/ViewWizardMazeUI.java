@@ -21,7 +21,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-public class WizardMazeUI {
+public class ViewWizardMazeUI {
 	
 	private Color menuColor = new Color(50, 200, 77); // Color for menu items
 	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
@@ -39,7 +39,7 @@ public class WizardMazeUI {
 		JPanel mazePanel = createMazePanel();
 //		mazePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.green));
 		
-		SidePanel sidePanel = new SidePanel(extraTile); // Create the side panel
+		ViewSidePanel sidePanel = new ViewSidePanel(extraTile); // Create the side panel
 		
 //		sidePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.red));
 
@@ -76,7 +76,7 @@ public class WizardMazeUI {
 	private JPanel createMazePanel() {
 		JPanel mazePanel = new JPanel();
 		mazePanel.setOpaque(false);
-		MazeStructure mazeStructure = new MazeStructure();
+		ViewMazeStructure mazeStructure = new ViewMazeStructure();
 		extraTile = mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
 		return mazePanel;
 	}
@@ -88,7 +88,7 @@ public class WizardMazeUI {
 	 * @param sidePanel The panel containing additional controls.
 	 * @return The JLabel that serves as the background for the UI.
 	 */
-	private JLabel createBackgroundLabel(JPanel mazePanel, SidePanel sidePanel) {
+	private JLabel createBackgroundLabel(JPanel mazePanel, ViewSidePanel sidePanel) {
 		JLabel backgroundLabel = new JLabel();
 		backgroundLabel.setIcon(backgroundImage);
 		backgroundLabel.setLayout(new BorderLayout()); // Use BorderLayout for easy overlaying

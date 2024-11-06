@@ -9,7 +9,7 @@ import javax.swing.*;
  * displaying them in a specified container, and handling the 
  * associated components such as arrows and wizards.
  */
-public class MazeStructure {
+public class ViewMazeStructure {
 
     // Declare the mazeTiles array
     public String[][] mazeTiles;
@@ -31,7 +31,7 @@ public class MazeStructure {
     /**
      * Constructs a MazeStructure object and initializes the maze tiles.
      */
-    public MazeStructure() {
+    public ViewMazeStructure() {
         mazeTiles = new String[11][3];
 
         // Initialize the array

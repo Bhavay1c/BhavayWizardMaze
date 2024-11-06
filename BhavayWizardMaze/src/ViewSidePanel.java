@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.ArrayList;
 
 
-public class SidePanel extends JPanel {
+public class ViewSidePanel extends JPanel {
     private JLabel spareTileLabel;
     private String extraMazePiece;
     private String rotatorImage = "Images/rotator.png";
@@ -28,11 +28,11 @@ public class SidePanel extends JPanel {
     private Font textFont = new Font("Arial", Font.BOLD, 24);
     private Dimension buttonDimension = new Dimension(120,70);
 //    private Map<String, Color> players;
-    private ArrayList<Player> playersList = new ArrayList<Player>(4);
+    private ArrayList<ModelPlayer> playersList = new ArrayList<ModelPlayer>(4);
     private String wandImage = "Images/Wands1.png";
     private JPanel topSidePanel = new JPanel();
    
-    public SidePanel(String mazePiece) {
+    public ViewSidePanel(String mazePiece) {
 //    	 to get the image addressm of the piece missing 
       topSidePanel.setLayout(new GridBagLayout());
       topSidePanel.setOpaque(false);
@@ -43,10 +43,10 @@ public class SidePanel extends JPanel {
          GridBagConstraints gbc = new GridBagConstraints();
     	 /// test image of wizard will update in mvc what to change remove below line so that code supply which current player instaeed of green 
          
-         Player player1 = new Player("Bhavay",1,greenWTexts,"Images/Green.png");
-         Player player2 = new Player("Solomon",2,redWTexts,"Images/Red.png");
-         Player player3 = new Player("Mohammad",3,blueWTexts,"Images/Blue.png");
-         Player player4 = new Player("Himanshu",4,yellowWTexts,"Images/Yellow.png");
+         ModelPlayer player1 = new ModelPlayer("Bhavay",1,greenWTexts,"Images/Green.png");
+         ModelPlayer player2 = new ModelPlayer("Solomon",2,redWTexts,"Images/Red.png");
+         ModelPlayer player3 = new ModelPlayer("Mohammad",3,blueWTexts,"Images/Blue.png");
+         ModelPlayer player4 = new ModelPlayer("Himanshu",4,yellowWTexts,"Images/Yellow.png");
 
         playersList.add(player1);
         playersList.add(player2);
@@ -112,7 +112,7 @@ public class SidePanel extends JPanel {
     }
     
     
-    public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc,Player currentPlayer) {
+    public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc,ModelPlayer currentPlayer) {
     	
     	JPanel recipePiecesCapturedPanel = new JPanel();
     	recipePiecesCapturedPanel.setLayout(new GridBagLayout());
@@ -211,7 +211,7 @@ public class SidePanel extends JPanel {
     	playersListPanel.setOpaque(false);
     	GridBagConstraints gbc2 = new GridBagConstraints();
     	int y = 0  ; // used to move to new line using gbc constarints
-    	for (Player player :playersList) {
+    	for (ModelPlayer player :playersList) {
     		
     		JLabel playerTextLabel = new JLabel(player.getName());
             playerTextLabel.setFont(textFont); // font
@@ -255,7 +255,7 @@ public class SidePanel extends JPanel {
     	
     }
     
-    public void currentPlayerMazePiecePanelAdd(String mazePiece, Player cPlayer,  GridBagConstraints gbc  ) {
+    public void currentPlayerMazePiecePanelAdd(String mazePiece, ModelPlayer cPlayer,  GridBagConstraints gbc  ) {
     	JPanel currentPlayerMazePiecePanel = new JPanel();
     	currentPlayerMazePiecePanel.setLayout(new GridBagLayout());
     	currentPlayerMazePiecePanel.setOpaque(false);
@@ -373,7 +373,7 @@ public class SidePanel extends JPanel {
   }
 
 
-    public void chatPanelAdd(GridBagConstraints gbc, Player currentPlayer) {
+    public void chatPanelAdd(GridBagConstraints gbc, ModelPlayer currentPlayer) {
 
         JPanel chatPanel = new JPanel();
         chatPanel.setOpaque(false);
