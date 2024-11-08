@@ -13,7 +13,7 @@ public class ViewMazeStructure {
 
     // Declare the mazeTiles array
     public String[][] mazeTiles;
-    public JButton[][] mazePattern = new JButton[8][8];
+    public JButton[][] mazePattern = new JButton[9][9];
 
     // Arrow button images
     private String arrowNorth = "Images/An.png";
@@ -26,7 +26,8 @@ public class ViewMazeStructure {
     private String yellow = "Images/yellow.png";
     private String red = "Images/red.png";
     private String blue = "Images/blue.png";
-    private String green = "Images/green.png";
+    private String green = "Images/green.png"; 
+    
 
     /**
      * Constructs a MazeStructure object and initializes the maze tiles.
@@ -145,38 +146,40 @@ public class ViewMazeStructure {
 
         c.gridx = 2;
         c.gridy = 0;
-        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
+        
+        pane.add(mazePattern[2][0] = createArrowButton(new ImageIcon(scaledSouth)), c);
+         
         c.gridx = 4;
-        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
+        pane.add(mazePattern[4][0] = createArrowButton(new ImageIcon(scaledSouth)), c);
         c.gridx = 6;
-        pane.add(createArrowButton(new ImageIcon(scaledSouth)), c);
+        pane.add(mazePattern[6][0] = createArrowButton(new ImageIcon(scaledSouth)), c);
 
         // Add South labels (above the maze)
         c.gridx = 2;
         c.gridy = 8;
-        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
+        pane.add(mazePattern[2][8] = createArrowButton(new ImageIcon(scaledNorth)), c);
         c.gridx = 4;
-        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
+        pane.add(mazePattern[4][8] = createArrowButton(new ImageIcon(scaledNorth)), c);
         c.gridx = 6;
-        pane.add(createArrowButton(new ImageIcon(scaledNorth)), c);
+        pane.add(mazePattern[6][8] = createArrowButton(new ImageIcon(scaledNorth)), c);
 
         // Add West labels (to the left of the maze)
         c.gridx = 0;
         c.gridy = 2;
-        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
+        pane.add(mazePattern[0][2] = createArrowButton(new ImageIcon(scaledEast)), c);
         c.gridy = 4;
-        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
+        pane.add(mazePattern[0][4] = createArrowButton(new ImageIcon(scaledEast)), c);
         c.gridy = 6;
-        pane.add(createArrowButton(new ImageIcon(scaledEast)), c);
+        pane.add(mazePattern[0][6] = createArrowButton(new ImageIcon(scaledEast)), c);
 
         // Add East labels (to the right of the maze)
         c.gridx = 8;
         c.gridy = 2;
-        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
+        pane.add(mazePattern[8][2] = createArrowButton(new ImageIcon(scaledWest)), c);
         c.gridy = 4;
-        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
+        pane.add(mazePattern[2][4] = createArrowButton(new ImageIcon(scaledWest)), c);
         c.gridy = 6;
-        pane.add(createArrowButton(new ImageIcon(scaledWest)), c);
+        pane.add(mazePattern[2][6] = createArrowButton(new ImageIcon(scaledWest)), c);
     }
 
     /**
@@ -225,15 +228,16 @@ public class ViewMazeStructure {
         ImageIcon wizard = new ImageIcon(wizColor); // default
         Image scaledWizard = wizard.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+        wizard.setDescription(components[randomNumber]);  // Set path as description
 
         
-        // code to test how it will look with component and wizard on same tile 
-        ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
-        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
+//        // code to test how it will look with component and wizard on same tile 
+//        ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
+//        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+//        JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
+//        
         
-        
-        tile.add(treasureLabel);
+//        tile.add(treasureLabel);
         tile.add(wizardLabel);
         tile.setLayout(new GridBagLayout());
     }
@@ -258,12 +262,31 @@ public class ViewMazeStructure {
         ImageIcon treasureIcon = new ImageIcon(components[randomNumber]); // Example random component
         Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
+        treasureIcon.setDescription(components[randomNumber]);  // Set path as description
 
         // Add treasure on top of the maze tile
-        tile.add(treasureLabel);
         tile.setLayout(new GridBagLayout()); // Use layout for placing the treasure
+
+        tile.add(treasureLabel);
     }
 
+    
+    public JLabel[] getTreasureWizardLabel(JButton tile) {
+    	JLabel[] tileLabels = new JLabel[2];
+    	int i=0;
+        for (Component component : tile.getComponents()) {
+        	
+        	
+            if (component instanceof JLabel) {
+                 tileLabels[i] = (JLabel) component;
+            }
+            i++;
+        }
+        
+        return tileLabels;
+    }
+
+    
     /**
      * Returns the path of an extra maze piece.
      *
@@ -286,26 +309,4 @@ public class ViewMazeStructure {
         return extraTile;
     }
     
-    
-    
-    public JButton getArrowNorthButton() {
-        return createArrowButton(new ImageIcon(arrowNorth));
-    }
-
-    public JButton getArrowSouthButton() {
-        return createArrowButton(new ImageIcon(arrowSouth));
-    }
-
-    public JButton getArrowWestButton() {
-        return createArrowButton(new ImageIcon(arrowWest));
-    }
-
-    public JButton getArrowEastButton() {
-        return createArrowButton(new ImageIcon(arrowEast));
-    }
-
-    public JButton[] getArrowButtons() {
-        return new JButton[]{getArrowNorthButton(), getArrowSouthButton(), getArrowWestButton(), getArrowEastButton()};
-    }
-
 }

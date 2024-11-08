@@ -45,8 +45,8 @@ public class ControllerSingleDevice {
         view.createAndShowGUI();
 
         ViewMazeStructure vms = view.getViewMazeStructure();
-        initializeTileListeners(vms);
-        initializeArrowListeners(vms);
+        initializeTileArrowListeners(vms);
+     
         menuActionEvents();
 
 
@@ -242,52 +242,45 @@ public class ControllerSingleDevice {
     /**
      * Initializes listeners for all maze tiles.
      */
-    private void initializeTileListeners(ViewMazeStructure vms) {
+    private void initializeTileArrowListeners(ViewMazeStructure vms) {
         for (int i = 1; i < vms.mazePattern.length; i++) {
             for (int j = 1; j < vms.mazePattern[i].length; j++) {
                 JButton tileButton = vms.mazePattern[i][j];
                 int row = i;
                 int col = j;
-
-                if (tileButton != null) {
-                    tileButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            model.onTileClick(row, col);
-                            model.interactWithWizard();
-                            model.interactWithComponent();
-                        }
-                    });
-                }
+                
+                if(row==0||row==8||col==0||col==8) {
+                	 if (tileButton != null) {
+                         tileButton.addActionListener(new ActionListener() {
+                             @Override
+                             public void actionPerformed(ActionEvent e) {
+                                 model.shiftMaze(row, col);
+                              
+                             }
+                         });
+                     }
+                } else {
+                	if (tileButton != null) {
+                        tileButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+//                            	Jlabel [] = vms.getTreasureWizardLabel(tileButton);
+                                model.onTileClick(row, col);
+                                
+//                                vms.getTreasureWizardLabel(tileButton).getIcon();
+                                model.interactWithWizard();
+                                model.interactWithComponent();
+                            }
+                        });
+                    }
+                } // end of else 
+                
+                
             }
         }
     }
 
-    /**
-     * Initializes listeners for the arrow buttons that shift the maze.
-     */
-    private void initializeArrowListeners(ViewMazeStructure vms) {
-        for (JButton arrowButton : vms.getArrowButtons()) {
-            arrowButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String direction = "";
-
-                    if (e.getSource() == vms.getArrowNorthButton()) {
-                        direction = "North";
-                    } else if (e.getSource() == vms.getArrowSouthButton()) {
-                        direction = "South";
-                    } else if (e.getSource() == vms.getArrowWestButton()) {
-                        direction = "West";
-                    } else if (e.getSource() == vms.getArrowEastButton()) {
-                        direction = "East";
-                    }
-
-                    model.shiftMaze(direction);
-                }
-            });
-        }
-    }
+    
   
 
 }

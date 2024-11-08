@@ -10,9 +10,9 @@ public class ModelMainGame {
      *
      * @param direction The direction of the arrow button clicked.
      */
-    public void shiftMaze(String direction) {
+    public void shiftMaze(int row, int col) {
         // Placeholder logic for shifting the maze in the specified direction.
-        System.out.println("Shifting maze in direction: " + direction);
+        System.out.println("arrow clicked on : " + row +" "+col );
     }
 
     /**
@@ -23,6 +23,9 @@ public class ModelMainGame {
      */
     public void onTileClick(int row, int col) {
         // Placeholder logic for tile click.
+    	
+    
+    	
         System.out.println("Tile clicked at (" + row + ", " + col + ")");
     }
 
