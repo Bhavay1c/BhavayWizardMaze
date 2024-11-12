@@ -231,13 +231,13 @@ public class ViewMazeStructure {
         wizard.setDescription(components[randomNumber]);  // Set path as description
 
         
-//        // code to test how it will look with component and wizard on same tile 
-//        ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
-//        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-//        JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
-//        
+        // code to test how it will look with component and wizard on same tile 
+        ImageIcon treasureIcon = new ImageIcon(components[1]); // Example random component
+        Image scaledTreasure = treasureIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        JLabel treasureLabel = new JLabel(new ImageIcon(scaledTreasure));
         
-//        tile.add(treasureLabel);
+        
+        tile.add(treasureLabel);
         tile.add(wizardLabel);
         tile.setLayout(new GridBagLayout());
     }

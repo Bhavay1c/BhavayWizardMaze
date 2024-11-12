@@ -17,6 +17,7 @@ public class ModelPlayer {
     private int totalPiece  = 0;
     private int totalScore = 0;
     private int nWands = 0;
+    private int[] position = new int[2];
     
     
     private String imageAddress;
@@ -32,6 +33,16 @@ public class ModelPlayer {
         this.color = color;
         this.imageAddress = imageAddress;
         
+    }
+    
+    public void setPosition(int[]position) {
+    	this.position = position;
+    	
+    } 
+    
+    public int[] getPosition() {
+    	int[] temp = position;
+    	return temp;
     }
 
     // method to get the wands 
