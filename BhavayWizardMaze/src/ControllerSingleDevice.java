@@ -45,6 +45,7 @@ public class ControllerSingleDevice {
     }
 
     private void handleTileClick(int row, int col) {
+    	model.tileClicked(row,col);
         System.out.println("Tile clicked at: (" + row + ", " + col + ")");
     }
     

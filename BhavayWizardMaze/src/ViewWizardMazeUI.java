@@ -98,8 +98,8 @@ public class ViewWizardMazeUI {
 	 * Creates and displays the main GUI of the Wizard's Maze game.
 	 */
 	public ViewWizardMazeUI(ModelMainGame theModel) {
-		playerCreate(); // method to create players ask to enter player names 
 		this.theModel = theModel;
+		playerCreate(); // method to create players ask to enter player names 
 		
 		
 		
@@ -165,14 +165,14 @@ public class ViewWizardMazeUI {
 //	}
 	
 	private void playerCreate() {
-//		getPlayerNames();
-//
-//        if (player1Name == null || player2Name == null) {
-//            JOptionPane.showMessageDialog(null, "Player names are required to start the game.", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
+		getPlayerNames();
+
+        if (player1Name == null || player2Name == null) {
+            JOptionPane.showMessageDialog(null, "Player names are required to start the game.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
-        theModel.createPlayers("kjj","hhh","hggg","hggg");
+        theModel.createPlayers(player1Name,player2Name,player3Name,player4Name);
 		
 	}
 	private void getPlayerNames() {

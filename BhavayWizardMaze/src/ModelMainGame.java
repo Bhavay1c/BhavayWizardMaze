@@ -29,6 +29,8 @@ public class ModelMainGame {
     private String arrowWest = "Images/AW.png";
     private String arrowSouth = "Images/AS.png";
     private String arrowEast = "Images/AE.png";
+    private Set<String> visitedCells = new HashSet<>(); // Track visited cells to prevent revisiting
+
     
     private ViewMazeStructure vms = new ViewMazeStructure();
 
@@ -250,7 +252,7 @@ public String extraMazePiece() {
         
 
         // call the displayWizardImage function of ViewMazeStructure which takes in string and i and j values and put the wizard there 
-        players.get(pNumb).setPosition(i,j);
+        players.get(pNumb).setPosition(j,i); // position is reversed i is j j is i for normal humans
         vms.displayWizardImage(i,j,wizColor);
 
         
@@ -341,4 +343,162 @@ public String extraMazePiece() {
     public void rotateTile(int[] position, String direction) {
         System.out.println("Tile at position (" + position[0] + ", " + position[1] + ") rotated " + direction);
     }
+
+
+	public void tileClicked(int i, int j) {
+	
+		// verify if arrow clicked ??
+		if (i == 0 || i == 8 || j == 0 || j == 8) {
+			
+			shiftMaze(i,j);
+		}
+		else {
+			// tile clicked 
+			
+			playerMove(i,j);
+			
+			
+		}
+		
+		
+		
+	}
+
+
+	private void shiftMaze(int i, int j) {
+		
+	}
+	
+//	public void printMazePattern() {
+//		for (int i = 0; i < 9; i++) {
+//			
+//		
+//            for (int j = 0; j < 9; j++) {
+//            	
+//            	
+//            	System.out.print(i+"--i " +j+"--j " +mazePattern[i][j]+" ");
+//            	
+//            	
+//            	
+//            }
+//            
+//            System.out.println();
+//		}
+//		
+//	}
+	
+//	private void playerMove(int iFPos, int jFPos) {
+//		
+//		int [] currentPosition = players.get(2).getPosition();
+//		int iCurrent = currentPosition[0];
+//		int jCurrent = currentPosition[1];
+//		System.out.println(iFPos+"F "+jFPos);
+//
+//		System.out.println(iCurrent+" C"+jCurrent);
+//		
+//		String currentPiece = mazePattern[iCurrent][jCurrent];
+//		stringDirectionExtract(currentPiece);
+//		
+//		System.out.println(currentPiece);
+//		
+//		printMazePattern();
+//		
+//		
+//	}
+	
+	
+//	private void stringDirectionExtract(String path) {
+//		
+//        
+//        // Extract only N, S, E, and W
+//        String directions = path.replaceAll("[^NSEW]", "");
+//        
+//        // Print each direction separately
+//        for (char direction : directions.toCharArray()) {
+//            System.out.println(direction);
+//        }
+//    }
+	
+	
+	// Function to move player
+    public void playerMove(int iFPos, int jFPos) {
+        int[] currentPosition = players.get(2).getPosition();
+        int iCurrent = currentPosition[0];
+        int jCurrent = currentPosition[1];
+
+        System.out.println("Target Position: " + iFPos + ", " + jFPos);
+        System.out.println("Current Position: " + iCurrent + ", " + jCurrent);
+
+        String currentPiece = mazePattern[iCurrent][jCurrent];
+        Set<Character> allowedDirections = stringDirectionExtract(currentPiece);
+
+        if (canMoveToTarget(iCurrent, jCurrent, iFPos, jFPos, allowedDirections)) {
+            System.out.println("Move successfu nkjibnhuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyl!");
+            players.get(2).setPosition(iFPos, jFPos); // Update player position
+        } else {
+            System.out.println("Cannot move to the target position.");
+        }
+    }
+
+    // Extract allowed directions (N, S, E, W) from a cell's path string
+    private Set<Character> stringDirectionExtract(String path) {
+        String directions = path.replaceAll("[^NSEW]", "");
+        Set<Character> directionSet = new HashSet<>();
+
+        for (char direction : directions.toCharArray()) {
+            directionSet.add(direction);
+        }
+
+        return directionSet;
+    }
+
+    // Check if the move to (iFPos, jFPos) is allowed based on current cell's directions
+    private boolean canMoveToTarget(int iCurrent, int jCurrent, int iFPos, int jFPos, Set<Character> allowedDirections) {
+        // Check if the target cell is out of bounds
+        if (iFPos < 0 || iFPos >= mazePattern.length || jFPos < 0 || jFPos >= mazePattern[0].length) {
+            return false;
+        }
+
+        // Convert position to a string key to track visits
+        String targetKey = iFPos + "," + jFPos;
+
+        // Check if we already visited this cell
+        if (visitedCells.contains(targetKey)) {
+            return false;
+        }
+
+        // Determine the required direction to move to the target cell
+        int rowDiff = iFPos - iCurrent;
+        int colDiff = jFPos - jCurrent;
+        char requiredDirection = getDirection(rowDiff, colDiff);
+
+        // Check if the required direction is allowed in the current cell
+        if (allowedDirections.contains(requiredDirection)) {
+            visitedCells.add(targetKey); // Mark this cell as visited
+            return true;
+        }
+
+        return false;
+    }
+
+    // Determine the direction based on row/column differences
+    private char getDirection(int rowDiff, int colDiff) {
+        if (rowDiff == -1 && colDiff == 0) return 'N';
+        if (rowDiff == 1 && colDiff == 0) return 'S';
+        if (rowDiff == 0 && colDiff == 1) return 'E';
+        if (rowDiff == 0 && colDiff == -1) return 'W';
+        return ' '; // Invalid direction
+    }
+
+    // Example of how to print the maze (for debugging)
+    private void printMazePattern() {
+        for (String[] row : mazePattern) {
+            for (String cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+	
+	
 }
