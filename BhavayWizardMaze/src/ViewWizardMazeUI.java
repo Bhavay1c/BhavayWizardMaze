@@ -28,7 +28,7 @@ public class ViewWizardMazeUI {
 	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
 	private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
 	private String extraTile;
-	private ViewMazeStructure mazeStructure = new ViewMazeStructure();
+	private ViewMazeStructure mazeStructure = new ViewMazeStructure(null);
 	// Declare all menu items as private variables
 	private JMenuItem saveItem = createMenuItem("Save");
 	private JMenuItem reloadItem = createMenuItem("Reload");

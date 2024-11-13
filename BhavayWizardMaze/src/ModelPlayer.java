@@ -25,7 +25,7 @@ public class ModelPlayer {
     
     
     // Constructor
-    public ModelPlayer(String name, int uniqueNumber, Color color, String imageAddress) {
+    public ModelPlayer(String name, int uniqueNumber) {
         this.name = name;
         this.uniqueNumber = uniqueNumber;
         this.capturedPieces[0] = 0; // Initialized to 0
