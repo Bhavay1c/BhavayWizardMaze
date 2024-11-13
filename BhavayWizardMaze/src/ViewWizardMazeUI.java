@@ -7,6 +7,7 @@
  * @studentID 041102440
  * @professor Daniel Cormeir
  */
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,7 +29,7 @@ public class ViewWizardMazeUI {
 	private Font menuFont = new Font("Arial", Font.BOLD, 24); // Font for menu items
 	private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
 	private String extraTile;
-	private ViewMazeStructure mazeStructure = new ViewMazeStructure(null);
+	private ViewMazeStructure mazeStructure = new ViewMazeStructure();
 	// Declare all menu items as private variables
 	private JMenuItem saveItem = createMenuItem("Save");
 	private JMenuItem reloadItem = createMenuItem("Reload");
@@ -42,64 +43,74 @@ public class ViewWizardMazeUI {
 	private JMenuItem hostItem = createMenuItem("Host");
 	private JMenuItem connectItem = createMenuItem("Connect");
 	private JMenuItem disconnectItem = createMenuItem("Disconnect");
-
-	// Getter methods for each menu item
-	public JMenuItem getSaveItem() {
-	    return saveItem;
-	}
-
-	public JMenuItem getReloadItem() {
-	    return reloadItem;
-	}
-
-	public JMenuItem getNewGameItem() {
-	    return newGameItem;
-	}
-
-	public JMenuItem getChangeNameItem() {
-	    return changeNameItem;
-	}
-
-	public JMenuItem getInvitePlayerItem() {
-	    return invitePlayerItem;
-	}
-
-	public JMenuItem getEnglishItem() {
-	    return englishItem;
-	}
-
-	public JMenuItem getChineseItem() {
-	    return chineseItem;
-	}
-
-	public JMenuItem getAboutItem() {
-	    return aboutItem;
-	}
-
-	public JMenuItem getGameRulesItem() {
-	    return gameRulesItem;
-	}
-
-	public JMenuItem getHostItem() {
-	    return hostItem;
-	}
-
-	public JMenuItem getConnectItem() {
-	    return connectItem;
-	}
-
-	public JMenuItem getDisconnectItem() {
-	    return disconnectItem;
-	}
-
+	private ModelMainGame theModel = new ModelMainGame(null);
+	private String player1Name, player2Name, player3Name, player4Name;
+//	// Getter methods for each menu item
+//	public JMenuItem getSaveItem() {
+//	    return saveItem;
+//	}
+//
+//	public JMenuItem getReloadItem() {
+//	    return reloadItem;
+//	}
+//
+//	public JMenuItem getNewGameItem() {
+//	    return newGameItem;
+//	}
+//
+//	public JMenuItem getChangeNameItem() {
+//	    return changeNameItem;
+//	}
+//
+//	public JMenuItem getInvitePlayerItem() {
+//	    return invitePlayerItem;
+//	}
+//
+//	public JMenuItem getEnglishItem() {
+//	    return englishItem;
+//	}
+//
+//	public JMenuItem getChineseItem() {
+//	    return chineseItem;
+//	}
+//
+//	public JMenuItem getAboutItem() {
+//	    return aboutItem;
+//	}
+//
+//	public JMenuItem getGameRulesItem() {
+//	    return gameRulesItem;
+//	}
+//
+//	public JMenuItem getHostItem() {
+//	    return hostItem;
+//	}
+//
+//	public JMenuItem getConnectItem() {
+//	    return connectItem;
+//	}
+//
+//	public JMenuItem getDisconnectItem() {
+//	    return disconnectItem;
+//	}
+ 
 	/**
 	 * Creates and displays the main GUI of the Wizard's Maze game.
 	 */
-	public void createAndShowGUI() {
+	public ViewWizardMazeUI(ModelMainGame theModel) {
+		playerCreate(); // method to create players ask to enter player names 
+		this.theModel = theModel;
+		
+		
+		
 		JFrame frame = createMainFrame();
 		JPanel mainPanel = new JPanel(new BorderLayout());
 
+		 // Prompt for player names before proceeding
+        
+        
 		// Create and configure the maze panel
+        
 		JPanel mazePanel = createMazePanel();
 //		mazePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.green));
 		
@@ -140,7 +151,11 @@ public class ViewWizardMazeUI {
 	private JPanel createMazePanel() {
 		JPanel mazePanel = new JPanel();
 		mazePanel.setOpaque(false);
-		extraTile = mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
+		mazeStructure.setPaneInitializer(mazePanel);
+		theModel.setViewMazeStructure(mazeStructure);
+		theModel.createRandomMaze();
+		
+//		extraTile = mazeStructure.displayMazeTiles(mazePanel); // Populate mazePanel with maze tiles
 		return mazePanel;
 	}
 	
@@ -148,6 +163,24 @@ public class ViewWizardMazeUI {
 //		return mazeStructure.mazePattern;
 //		
 //	}
+	
+	private void playerCreate() {
+//		getPlayerNames();
+//
+//        if (player1Name == null || player2Name == null) {
+//            JOptionPane.showMessageDialog(null, "Player names are required to start the game.", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+        
+        theModel.createPlayers("kjj","hhh","hggg","hggg");
+		
+	}
+	private void getPlayerNames() {
+        player1Name = JOptionPane.showInputDialog(null, "Enter name for Player 1:", "Player Name", JOptionPane.PLAIN_MESSAGE);
+        player2Name = JOptionPane.showInputDialog(null, "Enter name for Player 2:", "Player Name", JOptionPane.PLAIN_MESSAGE);
+        player3Name = JOptionPane.showInputDialog(null, "Enter name for Player 3:", "Player Name", JOptionPane.PLAIN_MESSAGE);
+        player4Name = JOptionPane.showInputDialog(null, "Enter name for Player 4:", "Player Name", JOptionPane.PLAIN_MESSAGE);
+    }
 	
 	public ViewMazeStructure getViewMazeStructure() {
 		return mazeStructure;

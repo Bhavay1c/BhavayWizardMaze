@@ -1,4 +1,3 @@
-import java.awt.Color;
 
 /**
  * The Player class represents a player in the Wizard's Maze game,
@@ -20,8 +19,8 @@ public class ModelPlayer {
     private int[] position = new int[2];
     
     
-    private String imageAddress;
-    private Color color;
+
+ 
     
     
     // Constructor
@@ -30,12 +29,11 @@ public class ModelPlayer {
         this.uniqueNumber = uniqueNumber;
         this.capturedPieces[0] = 0; // Initialized to 0
         
-        this.color = color;
-        this.imageAddress = imageAddress;
+        
         
     }
     
-    public void setPosition(int[]position) {
+    public void setPosition(int ...position) {
     	this.position = position;
     	
     } 
@@ -73,9 +71,7 @@ public class ModelPlayer {
         return name;
     }
 
-    public String getImageAddress() {
-        return imageAddress;
-    }
+   
     public int getUniqueNumber() {
         return uniqueNumber;
     }
@@ -110,9 +106,7 @@ public class ModelPlayer {
     	
     	
     }
-    public Color getColor() {
-        return color;
-    }
+    
 
     // Setters
     public void setName(String name) {

@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class ModelMainGame {
     // Attributes
-    private List<ModelPlayer> players;
-    private int numPlayers= -1;
+    private List<ModelPlayer> players = new ArrayList<ModelPlayer>();
+    private int numPlayers= 0;
     private int currentPlayerTurn=0;
     private int currentPlayerIndex;
     private ModelMazeStructure mazeStructure;
@@ -23,20 +23,21 @@ public class ModelMainGame {
     private String red = "Images/red.png";
     private String blue = "Images/blue.png";
     private String green = "Images/green.png"; 
-    private int nPAdded = -1;
+    private int nPAdded = 0;
     private String extraMazePiece = "";
     private String arrowNorth = "Images/An.png";
     private String arrowWest = "Images/AW.png";
     private String arrowSouth = "Images/AS.png";
     private String arrowEast = "Images/AE.png";
     
-    private ViewMazeStructure vms = new ViewMazeStructure(null);
+    private ViewMazeStructure vms = new ViewMazeStructure();
 
 
 
 
     // Constructor
-    public ModelMainGame() {
+    public ModelMainGame(ViewMazeStructure vms) {
+    	this.vms = vms;
     	 mazeTiles = new String[11][3];
 
          // Initialize the array
@@ -59,21 +60,35 @@ public class ModelMainGame {
          components[20] = "Images/green_" + 25 + ".png"; // Green component images
     	
     	
+         
+         
+         
     	
     }
 
     
-    
+    public void setViewMazeStructure(ViewMazeStructure vms ) {
+    	this.vms = vms;
+    }
     
     
     public void createRandomMaze() {
     	
-    	 for (int i = 1; i < 8; i++) {
-             for (int j = 1; j < 8; j++) {
+    	 for (int i = 0; i < 9; i++) {
+             for (int j = 0; j < 9; j++) {
             	 
             	// Place arrows along the edges
                  if (i == 0 || i == 8 || j == 0 || j == 8) {
-                     putArrow(i, j);
+                	 
+                	 if (i%2==0 && j%2==0) {
+                		 putArrow(i, j);
+                		 System.out.println("In randomMaze "+i + " "+ j);
+                		 continue;
+                		 
+                	 }
+                	 else {
+                		 continue;
+                	 }
                  }
             	 
                  int randomNumber = (int) (Math.random() * 11); // Generates a number between 0 and 10
@@ -121,7 +136,8 @@ public class ModelMainGame {
          }
       
          
-     extraMazePiece(); // method which will put the extra mazePiece
+      // method which will put the extra mazePiece
+     System.out.println(extraMazePiece());
      }
 
     	
@@ -131,7 +147,7 @@ public class ModelMainGame {
  // Method to place arrows along the edges
     private void putArrow(int i, int j) {
 
-    	   
+    	   System.out.println("In here"+i+"  "+j);
         // South arrows 
         if (j == 0 && (i == 2 || i == 4 || i == 6)) {
         	mazePattern[i][j] = arrowSouth;
@@ -148,16 +164,16 @@ public class ModelMainGame {
         }
         // West arrows
         if (i == 0 && (j == 2 || j == 4 || j == 6)) {
-        	mazePattern[i][j] = arrowWest;
+        	mazePattern[i][j] = arrowEast;
             // call the displayArrowTile function of ViewMazeStructure which takes in string and i and j values and put the arrow tile there 
-            vms.displayArrowTile(i,j,arrowWest,25,80);
+            vms.displayArrowTile(i,j,arrowEast,25,80);
 
         }
         // East arrows 
         if (i == 8 && (j == 2 || j == 4 || j == 6)) {
-        	mazePattern[i][j] = arrowEast;
+        	mazePattern[i][j] = arrowWest;
             // call the displayArrowTile function of ViewMazeStructure which takes in string and i and j values and put the arrow tile there 
-            vms.displayArrowTile(i,j,arrowEast,25,80);
+            vms.displayArrowTile(i,j,arrowWest,25,80);
 
         }
     }
@@ -234,6 +250,7 @@ public String extraMazePiece() {
         
 
         // call the displayWizardImage function of ViewMazeStructure which takes in string and i and j values and put the wizard there 
+        players.get(pNumb).setPosition(i,j);
         vms.displayWizardImage(i,j,wizColor);
 
         
@@ -245,14 +262,16 @@ public String extraMazePiece() {
     
     // method to create players it takes an varargs in whgich you pass the number of strings of how many players are playing and then it creates the players based on it  
     public void createPlayers(String ...playerNames) {
-    	players = new ArrayList<ModelPlayer>();
+    	System.out.println("Creating plyer "+ numPlayers);
     	for (String playerName : playerNames) {
     		
     		ModelPlayer player = new ModelPlayer(playerName,numPlayers);
     		players.add(player);
-    		
+    	
     		numPlayers++;
     	}
+    	
+    	playerRecipeGenerator();
     	
     }
     

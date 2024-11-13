@@ -43,16 +43,11 @@ public class ViewSidePanel extends JPanel {
          GridBagConstraints gbc = new GridBagConstraints();
     	 /// test image of wizard will update in mvc what to change remove below line so that code supply which current player instaeed of green 
          
-         ModelPlayer player1 = new ModelPlayer("Bhavay",1,greenWTexts,"Images/Green.png");
-         ModelPlayer player2 = new ModelPlayer("Solomon",2,redWTexts,"Images/Red.png");
-         ModelPlayer player3 = new ModelPlayer("Mohammad",3,blueWTexts,"Images/Blue.png");
-         ModelPlayer player4 = new ModelPlayer("Himanshu",4,yellowWTexts,"Images/Yellow.png");
+         ModelPlayer player1 = new ModelPlayer("Bhavay",0);
+      
 
         playersList.add(player1);
-        playersList.add(player2);
-        playersList.add(player3);
-        playersList.add(player4);
-
+      
         
         gbc.insets = new Insets(80, -10, 0, 30); // 20px top margin, no padding on other sides
         gbc.gridx = 0;
@@ -68,7 +63,7 @@ public class ViewSidePanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
 
-        currentPlayerMazePiecePanelAdd(mazePiece, player3 , gbc);
+        currentPlayerMazePiecePanelAdd(mazePiece, player1 , gbc);
          
         
         gbc.insets = new Insets(0, -10, 0, 0); // 20px top margin, no padding on other sides
@@ -216,19 +211,19 @@ public class ViewSidePanel extends JPanel {
     		JLabel playerTextLabel = new JLabel(player.getName());
             playerTextLabel.setFont(textFont); // font
 
-            playerTextLabel.setForeground(player.getColor());
+//            playerTextLabel.setForeground(player.getColor());
         	gbc2.gridx = 0;
         	gbc2.gridy = y;
         	gbc2.insets = new Insets(0,5,10,0);
             playersListPanel.add(playerTextLabel,gbc2);
             
-    		  ImageIcon playerWImage = new ImageIcon(player.getImageAddress()); // default
-    	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-    	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
-    	      
-    	      gbc2.gridx = 1;
-    	      gbc2.gridy = y;
-              playersListPanel.add(wizardLabel,gbc2);
+//    		  ImageIcon playerWImage = new ImageIcon(player.getImageAddress()); // default
+//    	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+//    	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+//    	      
+//    	      gbc2.gridx = 1;
+//    	      gbc2.gridy = y;
+//              playersListPanel.add(wizardLabel,gbc2);
               y++; // increment y to move to next line 
 
     	      
@@ -265,7 +260,7 @@ public class ViewSidePanel extends JPanel {
         JLabel currentTurnLabel = new JLabel(cPlayer.getName() + "'s Turn");
         currentTurnLabel.setFont(textFont); // font
 
-        currentTurnLabel.setForeground(cPlayer.getColor());
+//        currentTurnLabel.setForeground(cPlayer.getColor());
     	gbc2.gridx = 0;
     	gbc2.gridy = 0;
     	gbc2.insets = new Insets(0,5,10,0);
@@ -274,10 +269,10 @@ public class ViewSidePanel extends JPanel {
         gbc2.gridx = 1;
     	gbc2.gridy = 0;
     	
-    	 ImageIcon playerWImage = new ImageIcon(cPlayer.getImageAddress()); // default
-	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
-        currentPlayerMazePiecePanel.add(wizardLabel,gbc2);
+//    	 ImageIcon playerWImage = new ImageIcon(cPlayer.getImageAddress()); // default
+//	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+//	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+//        currentPlayerMazePiecePanel.add(wizardLabel,gbc2);
 
     	// spare tile label 
 	    extraMazePiece = mazePiece;
@@ -392,7 +387,7 @@ public class ViewSidePanel extends JPanel {
         
 
         JTextField chatInput = new JTextField();
-        chatInput.setForeground(currentPlayer.getColor());
+//        chatInput.setForeground(currentPlayer.getColor());
         chatInput.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.red));
 
         chatInput.setFont(textFont);
@@ -414,7 +409,7 @@ public class ViewSidePanel extends JPanel {
             String message = chatInput.getText().trim();
             if (!message.isEmpty()) {
                 chatArea.append(currentPlayer.getName() + ": " + message + "\n"); // Display the message with player's name
-                chatArea.setForeground(currentPlayer.getColor());
+//                chatArea.setForeground(currentPlayer.getColor());
                 chatInput.setText(""); // Clear the input field after sending
                 chatArea.setCaretPosition(chatArea.getDocument().getLength()); // Scroll to the bottom of the chat area
             }
