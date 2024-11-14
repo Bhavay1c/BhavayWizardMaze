@@ -33,8 +33,8 @@ SET JAROUT=labs-jar.out
 SET JARERR=labs-jar.err
 SET DOCDIR=doc
 SET DOCERR=labs-javadoc.err
-SET MAINCLASSSRC=src/WizardMazeMain.java
-SET MAINCLASSBIN=WizardMazeMain
+SET MAINCLASSSRC=src/MainMVC.java
+SET MAINCLASSBIN=MainMVC
 
 @echo off
 
@@ -72,7 +72,7 @@ jar cvfe %JARNAME% %MAINCLASSBIN% . > ../%JAROUT% 2> ../%JARERR%
 
 ECHO "3. Creating Javadoc ..............."
 cd ..
-javadoc -cp ".;%BINDIR%;../%LIBDIR%/*" --module-path "%LIBDIR%" -d %DOCDIR% -sourcepath %SRCDIR% src/WizardMazeMain.java src/MazeStructure.java src/WizardMazeUI.java src/SidePanel.java 2> %DOCERR%
+javadoc -cp ".;%BINDIR%;../%LIBDIR%/*" --module-path "%LIBDIR%" -d %DOCDIR% -sourcepath %SRCDIR% src/ControllerSingleDevice.java src/WizardMazeMain.java src/MainMVC.java src/ModelMainGame.java src/ModelPlayer.java src/ViewSidePanel.java src/ViewMazeStructure.java  2> %DOCERR%
 
 cd bin
 ECHO "4. Running Jar ...................."

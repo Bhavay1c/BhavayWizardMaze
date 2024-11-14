@@ -110,7 +110,7 @@ public class ViewWizardMazeUI {
 		 this.currentLocale = locale;
 //		 File file = new File("messages_zh_CN.properties");
 //		
-//
+
 //		 try {
 //			    this.messages = ResourceBundle.getBundle("C:\\Users\\bhava\\git\\repository\\BhavayWizardMaze\\src\\resources\\messages", currentLocale);
 //			} catch (MissingResourceException e) {

@@ -13,7 +13,6 @@ public class ModelMainGame {
     private int numPlayers= 0;
     public static int currentPlayerTurn=0;
     private int currentPlayerIndex;
-    private ModelMazeStructure mazeStructure;
     private String gameStatus;
     public String[][] mazeTiles;   
     private String[] components = new String[21];
@@ -324,22 +323,7 @@ public String extraMazePiece() {
         return gameStatus;
     }
 
-    public boolean playerMove(int playerId, int[] newPosition) {
-        if (playerId >= players.size() || playerId < 0) {
-            System.out.println("Invalid player ID.");
-            return false;
-        }
-        
-        ModelPlayer player = players.get(playerId);
-        if (mazeStructure.isValidMove(newPosition)) {
-            player.setPosition(newPosition);
-            System.out.println("Player " + playerId + " moved to " + newPosition[0] + ", " + newPosition[1]);
-            return true;
-        } else {
-            System.out.println("Invalid move.");
-            return false;
-        }
-    }
+   
 
    
 
