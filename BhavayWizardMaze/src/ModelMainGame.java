@@ -9,9 +9,9 @@ import java.util.Set;
 
 public class ModelMainGame {
     // Attributes
-    private List<ModelPlayer> players = new ArrayList<ModelPlayer>();
+    public static List<ModelPlayer> players = new ArrayList<ModelPlayer>();
     private int numPlayers= 0;
-    private int currentPlayerTurn=0;
+    public static int currentPlayerTurn=0;
     private int currentPlayerIndex;
     private ModelMazeStructure mazeStructure;
     private String gameStatus;
@@ -24,7 +24,7 @@ public class ModelMainGame {
     private String blue = "Images/blue.png";
     private String green = "Images/green.png"; 
     private int nPAdded = 0;
-    private String extraMazePiece = "";
+    public static String extraMazePiece = "";
     private String arrowNorth = "Images/An.png";
     private String arrowWest = "Images/AW.png";
     private String arrowSouth = "Images/AS.png";
@@ -269,6 +269,7 @@ public String extraMazePiece() {
     		
     		ModelPlayer player = new ModelPlayer(playerName,numPlayers);
     		players.add(player);
+    		player.setNWands(3);
     	
     		numPlayers++;
     	}
@@ -421,31 +422,54 @@ public String extraMazePiece() {
 	    
 	}
 
-	private void shiftMaze(int i, int j) {
+	private void shiftMaze(int x, int y) {
 		
-		System.out.println(extraMazePiece);
+		String tempImage = mazePattern[x][y];
+		mazePattern[x][y] = extraMazePiece;
+		
+		
+		printMazePattern();
+		 for (int i = 1; i < 8; i++) {
+			 
+			 
+			 
+//			  mazePattern[][];
+		 
+             
+		
+		 }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		System.out.println(x+extraMazePiece+y);
 		
 		
 		
 	}
 	
-//	public void printMazePattern() {
-//		for (int i = 0; i < 9; i++) {
-//			
-//		
-//            for (int j = 0; j < 9; j++) {
-//            	
-//            	
-//            	System.out.print(i+"--i " +j+"--j " +mazePattern[i][j]+" ");
-//            	
-//            	
-//            	
-//            }
-//            
-//            System.out.println();
-//		}
-//		
-//	}
+	public void printMazePattern() {
+		for (int i = 0; i < 9; i++) {
+			
+		
+            for (int j = 0; j < 9; j++) {
+            	
+            	
+            	System.out.print(i+"--i " +j+"--j " +mazePattern[i][j]+" ");
+            	
+            	
+            	
+            }
+            
+            System.out.println();
+		}
+		
+	}
 	
 //	private void playerMove(int iFPos, int jFPos) {
 //		
@@ -551,14 +575,14 @@ public String extraMazePiece() {
     }
 
     // Example of how to print the maze (for debugging)
-    private void printMazePattern() {
-        for (String[] row : mazePattern) {
-            for (String cell : row) {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
-        }
-    }
-	
+//    private void printMazePattern() {
+//        for (String[] row : mazePattern) {
+//            for (String cell : row) {
+//                System.out.print(cell + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
+//	
 	
 }

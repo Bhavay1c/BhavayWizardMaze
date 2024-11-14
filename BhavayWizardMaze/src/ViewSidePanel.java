@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
@@ -28,12 +29,22 @@ public class ViewSidePanel extends JPanel {
     private Font textFont = new Font("Arial", Font.BOLD, 24);
     private Dimension buttonDimension = new Dimension(120,70);
 //    private Map<String, Color> players;
-    private ArrayList<ModelPlayer> playersList = new ArrayList<ModelPlayer>(4);
+    private List<ModelPlayer> playersList = new ArrayList<ModelPlayer>(4);
+    private int currentPLayerTurn;
     private String wandImage = "Images/Wands1.png";
     private JPanel topSidePanel = new JPanel();
+   private String mazePiece;
+   private String yellow = "Images/yellow.png";
+   private String red = "Images/red.png";
+   private String blue = "Images/blue.png";
+   private String green = "Images/green.png"; 
+    
    
-    public ViewSidePanel(String mazePiece) {
+   public ViewSidePanel() {
 //    	 to get the image addressm of the piece missing 
+    	playersList = ModelMainGame.players;
+    	currentPLayerTurn = ModelMainGame.currentPlayerTurn;
+    	mazePiece = ModelMainGame.extraMazePiece;
       topSidePanel.setLayout(new GridBagLayout());
       topSidePanel.setOpaque(false);
 //		topSidePanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.blue));
@@ -43,10 +54,8 @@ public class ViewSidePanel extends JPanel {
          GridBagConstraints gbc = new GridBagConstraints();
     	 /// test image of wizard will update in mvc what to change remove below line so that code supply which current player instaeed of green 
          
-         ModelPlayer player1 = new ModelPlayer("Bhavay",0);
       
 
-        playersList.add(player1);
       
         
         gbc.insets = new Insets(80, -10, 0, 30); // 20px top margin, no padding on other sides
@@ -63,7 +72,7 @@ public class ViewSidePanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
 
-        currentPlayerMazePiecePanelAdd(mazePiece, player1 , gbc);
+        currentPlayerMazePiecePanelAdd(gbc);
          
         
         gbc.insets = new Insets(0, -10, 0, 0); // 20px top margin, no padding on other sides
@@ -76,29 +85,18 @@ public class ViewSidePanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        wandsButtonAdd(gbc,player1);  
+        wandsButtonAdd(gbc);  
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        player1.setRecipe(2,5,7);
-        player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);
-        player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);player1.addCapturedPiece(1);
-        player1.addCapturedPiece(13);
+        
 
-        recipePiecesCapturedPanelAdd(gbc,player1);  
+        recipePiecesCapturedPanelAdd(gbc);  
         
 
         gbc.gridx = 1;
         gbc.gridy = 3;
-        chatPanelAdd(gbc, player1);
+        chatPanelAdd(gbc);
         
         
         add(topSidePanel,BorderLayout.CENTER);
@@ -107,7 +105,7 @@ public class ViewSidePanel extends JPanel {
     }
     
     
-    public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc,ModelPlayer currentPlayer) {
+    public void recipePiecesCapturedPanelAdd(GridBagConstraints gbc) {
     	
     	JPanel recipePiecesCapturedPanel = new JPanel();
     	recipePiecesCapturedPanel.setLayout(new GridBagLayout());
@@ -120,8 +118,8 @@ public class ViewSidePanel extends JPanel {
     	recipeButton.setPreferredSize(buttonDimension);
     	
     	
-    	for (int i =0 ; i < currentPlayer.getRecipe().length; i++) {
-    		 ImageIcon recipe1 = new ImageIcon("Images/green_" + currentPlayer.getRecipe()[i] + ".png"); // default
+    	for (int i =0 ; i < playersList.get(currentPLayerTurn).getRecipe().length; i++) {
+    		 ImageIcon recipe1 = new ImageIcon("Images/green_" + playersList.get(currentPLayerTurn).getRecipe()[i] + ".png"); // default
              Image scaledRecipe1 = recipe1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
              JLabel recipe1Label = new JLabel(new ImageIcon(scaledRecipe1));
     	
@@ -146,8 +144,8 @@ public class ViewSidePanel extends JPanel {
     	
     	
     	
-    	for (int i =0 ; i < currentPlayer.getCapturedPieces().length; i++) {
-    		 ImageIcon piece1 = new ImageIcon("Images/green_" + currentPlayer.getCapturedPieces()[i] + ".png"); // default
+    	for (int i =0 ; i <playersList.get(currentPLayerTurn).getCapturedPieces().length; i++) {
+    		 ImageIcon piece1 = new ImageIcon("Images/green_" +playersList.get(currentPLayerTurn).getCapturedPieces()[i] + ".png"); // default
              Image scaledPiece1 = piece1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
              JLabel piece1Label = new JLabel(new ImageIcon(scaledPiece1));
 
@@ -199,6 +197,62 @@ public class ViewSidePanel extends JPanel {
         
     }
     
+    private Color getColor(int id) {
+    	
+    	switch (id) {
+    	
+    	
+    		case 0:
+    			return greenWTexts;
+    			
+    		case 1:
+    			return redWTexts;
+
+
+    		
+    		case 2:
+    			return blueWTexts;
+
+        	case 3:
+    			return yellowWTexts;
+    			
+    			
+    			
+    		
+    	}
+    	
+    	return greenWTexts;
+    }
+    
+    
+ private String getImageWiz(int id) {
+    	
+    	switch (id) {
+    	
+    	
+    		case 0:
+    			return green;
+    			
+    		case 1:
+    			return red;
+
+
+    		
+    		case 2:
+    			return blue;
+
+        	case 3:
+    			return yellow;
+    			
+    			
+    			
+    		
+    	}
+    	
+    	return green;
+    }
+    
+    
     public void playersListAdd(GridBagConstraints gbc, int componentNumber) {
     	
     	JPanel playersListPanel = new JPanel();
@@ -211,19 +265,19 @@ public class ViewSidePanel extends JPanel {
     		JLabel playerTextLabel = new JLabel(player.getName());
             playerTextLabel.setFont(textFont); // font
 
-//            playerTextLabel.setForeground(player.getColor());
+            playerTextLabel.setForeground(getColor(player.getUniqueNumber()));
         	gbc2.gridx = 0;
         	gbc2.gridy = y;
         	gbc2.insets = new Insets(0,5,10,0);
             playersListPanel.add(playerTextLabel,gbc2);
             
-//    		  ImageIcon playerWImage = new ImageIcon(player.getImageAddress()); // default
-//    	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-//    	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
-//    	      
-//    	      gbc2.gridx = 1;
-//    	      gbc2.gridy = y;
-//              playersListPanel.add(wizardLabel,gbc2);
+    		  ImageIcon playerWImage = new ImageIcon(getImageWiz(player.getUniqueNumber())); // default
+    	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+    	      
+    	      gbc2.gridx = 1;
+    	      gbc2.gridy = y;
+              playersListPanel.add(wizardLabel,gbc2);
               y++; // increment y to move to next line 
 
     	      
@@ -250,17 +304,17 @@ public class ViewSidePanel extends JPanel {
     	
     }
     
-    public void currentPlayerMazePiecePanelAdd(String mazePiece, ModelPlayer cPlayer,  GridBagConstraints gbc  ) {
+    public void currentPlayerMazePiecePanelAdd(GridBagConstraints gbc  ) {
     	JPanel currentPlayerMazePiecePanel = new JPanel();
     	currentPlayerMazePiecePanel.setLayout(new GridBagLayout());
     	currentPlayerMazePiecePanel.setOpaque(false);
     	GridBagConstraints gbc2 = new GridBagConstraints();
     	
     	 // Label for the current player's turn
-        JLabel currentTurnLabel = new JLabel(cPlayer.getName() + "'s Turn");
+        JLabel currentTurnLabel = new JLabel(playersList.get(currentPLayerTurn).getName() + "'s Turn");
         currentTurnLabel.setFont(textFont); // font
 
-//        currentTurnLabel.setForeground(cPlayer.getColor());
+        currentTurnLabel.setForeground(getColor(playersList.get(currentPLayerTurn).getUniqueNumber()));
     	gbc2.gridx = 0;
     	gbc2.gridy = 0;
     	gbc2.insets = new Insets(0,5,10,0);
@@ -269,10 +323,10 @@ public class ViewSidePanel extends JPanel {
         gbc2.gridx = 1;
     	gbc2.gridy = 0;
     	
-//    	 ImageIcon playerWImage = new ImageIcon(cPlayer.getImageAddress()); // default
-//	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-//	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
-//        currentPlayerMazePiecePanel.add(wizardLabel,gbc2);
+    	 ImageIcon playerWImage = new ImageIcon(getImageWiz(playersList.get(currentPLayerTurn).getUniqueNumber())); // default
+	      Image scaledWizard = playerWImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+	      JLabel wizardLabel = new JLabel(new ImageIcon(scaledWizard));
+        currentPlayerMazePiecePanel.add(wizardLabel,gbc2);
 
     	// spare tile label 
 	    extraMazePiece = mazePiece;
@@ -303,7 +357,7 @@ public class ViewSidePanel extends JPanel {
     }
     
     
-    public void wandsButtonAdd(GridBagConstraints gbc, ModelPlayer currentPlayer) {
+    public void wandsButtonAdd(GridBagConstraints gbc) {
     	JPanel wandsButtonPanel = new JPanel();
     	wandsButtonPanel.setLayout(new GridBagLayout());
     	wandsButtonPanel.setOpaque(false);
@@ -317,7 +371,7 @@ public class ViewSidePanel extends JPanel {
     	wandsButton.setPreferredSize(buttonDimension);
     	
     	
-    	for (int i =0 ; i < currentPlayer.getNWands(); i++) {
+    	for (int i =0 ; i < playersList.get(currentPLayerTurn).getNWands(); i++) {
     		 ImageIcon wand = new ImageIcon(wandImage); // default
              Image scaledWand = wand.getImage().getScaledInstance(46, 43, Image.SCALE_SMOOTH);
              JLabel wandLabel = new JLabel(new ImageIcon(scaledWand));
@@ -368,7 +422,7 @@ public class ViewSidePanel extends JPanel {
   }
 
 
-    public void chatPanelAdd(GridBagConstraints gbc, ModelPlayer currentPlayer) {
+    public void chatPanelAdd(GridBagConstraints gbc) {
 
         JPanel chatPanel = new JPanel();
         chatPanel.setOpaque(false);
@@ -408,8 +462,8 @@ public class ViewSidePanel extends JPanel {
         ActionListener sendMessage = e -> {
             String message = chatInput.getText().trim();
             if (!message.isEmpty()) {
-                chatArea.append(currentPlayer.getName() + ": " + message + "\n"); // Display the message with player's name
-//                chatArea.setForeground(currentPlayer.getColor());
+                chatArea.append(playersList.get(currentPLayerTurn).getName() + ": " + message + "\n"); // Display the message with player's name
+                chatArea.setForeground(getColor(playersList.get(currentPLayerTurn).getUniqueNumber()));
                 chatInput.setText(""); // Clear the input field after sending
                 chatArea.setCaretPosition(chatArea.getDocument().getLength()); // Scroll to the bottom of the chat area
             }

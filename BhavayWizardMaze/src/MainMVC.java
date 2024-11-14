@@ -1,3 +1,4 @@
+import java.util.Locale;
 
 public class MainMVC {
     
@@ -15,7 +16,9 @@ public class MainMVC {
     public static void main(String args[]) {
     	 
     	ModelMainGame theModel = new ModelMainGame(null);
-    	ViewWizardMazeUI theMainView = new ViewWizardMazeUI(theModel);
+		Locale locale = new Locale.Builder().setLanguage("zh").setRegion("CN").build();
+System.out.println(locale);
+    	ViewWizardMazeUI theMainView = new ViewWizardMazeUI(theModel,locale);
 //    	ViewMazeStructure theView = new ViewMazeStructure();
         ControllerSingleDevice theController = new ControllerSingleDevice(theModel, theMainView);
         

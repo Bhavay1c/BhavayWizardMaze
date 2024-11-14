@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,6 +23,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 public class ViewWizardMazeUI {
 	
@@ -30,6 +34,9 @@ public class ViewWizardMazeUI {
 	private ImageIcon backgroundImage = new ImageIcon("Images/BG1.png");
 	private String extraTile;
 	private ViewMazeStructure mazeStructure = new ViewMazeStructure();
+	
+	private ResourceBundle messages;
+    private Locale currentLocale;
 	// Declare all menu items as private variables
 	private JMenuItem saveItem = createMenuItem("Save");
 	private JMenuItem reloadItem = createMenuItem("Reload");
@@ -97,11 +104,20 @@ public class ViewWizardMazeUI {
 	/**
 	 * Creates and displays the main GUI of the Wizard's Maze game.
 	 */
-	public ViewWizardMazeUI(ModelMainGame theModel) {
+	public ViewWizardMazeUI(ModelMainGame theModel, Locale locale) {
 		this.theModel = theModel;
 		playerCreate(); // method to create players ask to enter player names 
-		
-		
+		 this.currentLocale = locale;
+//		 File file = new File("messages_zh_CN.properties");
+//		
+//
+//		 try {
+//			    this.messages = ResourceBundle.getBundle("C:\\Users\\bhava\\git\\repository\\BhavayWizardMaze\\src\\resources\\messages", currentLocale);
+//			} catch (MissingResourceException e) {
+//			    System.out.println("Missing resource bundle for " + currentLocale);
+//			    this.messages = ResourceBundle.getBundle("C:\\Users\\bhava\\git\\repository\\BhavayWizardMaze\\src\\resources\\messages", Locale.ENGLISH); // Fallback to English
+//			}
+//		
 		
 		JFrame frame = createMainFrame();
 		JPanel mainPanel = new JPanel(new BorderLayout());
@@ -114,7 +130,7 @@ public class ViewWizardMazeUI {
 		JPanel mazePanel = createMazePanel();
 //		mazePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.green));
 		
-		ViewSidePanel sidePanel = new ViewSidePanel(extraTile); // Create the side panel
+		ViewSidePanel sidePanel = new ViewSidePanel(); // Create the side panel
 		
 //		sidePanel.setBorder(BorderFactory.createMatteBorder(1, 1,1 , 1, Color.red));
 
@@ -270,6 +286,69 @@ public class ViewWizardMazeUI {
 
 	    return menuBar;
 	}
+	
+//	 private JMenuBar createMenuBar() {
+//	        JMenuBar menuBar = new JMenuBar();
+//	        menuBar.setOpaque(false); // Make the menu bar non-opaque (transparent)
+//		    menuBar.setBorder(null);
+//	        
+//	        JMenu fileMenu = new JMenu(messages.getString("fileMenu"));
+//	        fileMenu.setForeground(menuColor);
+//		    fileMenu.setFont(menuFont);
+//
+//	        JMenuItem saveItem = new JMenuItem(messages.getString("save"));
+//	        JMenuItem reloadItem = new JMenuItem(messages.getString("reload"));
+//	        fileMenu.add(saveItem);
+//	        fileMenu.add(reloadItem);
+//
+//	        JMenu gameMenu = new JMenu(messages.getString("gameMenu"));
+//	        gameMenu.setForeground(menuColor);
+//		    gameMenu.setFont(menuFont);
+//
+//	        JMenuItem newGameItem = new JMenuItem(messages.getString("newGame"));
+//	        JMenuItem changeNameItem = new JMenuItem(messages.getString("changeName"));
+//	        JMenuItem invitePlayerItem = new JMenuItem(messages.getString("invitePlayer"));
+//	        gameMenu.add(newGameItem);
+//	        gameMenu.add(changeNameItem);
+//	        gameMenu.add(invitePlayerItem);
+//
+//	        JMenu languageMenu = new JMenu(messages.getString("languageMenu"));
+//	        languageMenu.setForeground(menuColor);
+//		    languageMenu.setFont(menuFont);
+//
+//	        JMenuItem englishItem = new JMenuItem(messages.getString("english"));
+//	        JMenuItem chineseItem = new JMenuItem(messages.getString("chinese"));
+//	        languageMenu.add(englishItem);
+//	        languageMenu.add(chineseItem);
+//
+//	        JMenu helpMenu = new JMenu(messages.getString("helpMenu"));
+//	        helpMenu.setForeground(menuColor);
+//		    helpMenu.setFont(menuFont);
+//
+//	        JMenuItem aboutItem = new JMenuItem(messages.getString("about"));
+//	        JMenuItem gameRulesItem = new JMenuItem(messages.getString("gameRules"));
+//	        helpMenu.add(aboutItem);
+//	        helpMenu.add(gameRulesItem);
+//
+//	        JMenu networkMenu = new JMenu(messages.getString("networkMenu"));
+//	        networkMenu.setForeground(menuColor);
+//		    networkMenu.setFont(menuFont);
+//
+//	        JMenuItem hostItem = new JMenuItem(messages.getString("host"));
+//	        JMenuItem connectItem = new JMenuItem(messages.getString("connect"));
+//	        JMenuItem disconnectItem = new JMenuItem(messages.getString("disconnect"));
+//	        networkMenu.add(hostItem);
+//	        networkMenu.add(connectItem);
+//	        networkMenu.add(disconnectItem);
+//
+//	        menuBar.add(fileMenu);
+//	        menuBar.add(gameMenu);
+//	        menuBar.add(languageMenu);
+//	        menuBar.add(helpMenu);
+//	        menuBar.add(networkMenu);
+//
+//	        return menuBar;
+//	    }
 
 	/**
 	 * Helper method to create menu items with consistent styling.
