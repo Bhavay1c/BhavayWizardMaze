@@ -340,9 +340,7 @@ public String extraMazePiece() {
         }
     }
 
-    public void rotateTile(int[] position, String direction) {
-        System.out.println("Tile at position (" + position[0] + ", " + position[1] + ") rotated " + direction);
-    }
+   
 
 
 	public void tileClicked(int i, int j) {
@@ -356,6 +354,7 @@ public String extraMazePiece() {
 			// tile clicked 
 			
 			playerMove(i,j);
+			rotateTile();
 			
 			
 		}
@@ -364,8 +363,69 @@ public String extraMazePiece() {
 		
 	}
 
+	
+	private void rotateTile() {
+	    // Extract current directions of the extra tile
+	    Set<Character> tileDirections = stringDirectionExtract(extraMazePiece);
+        String piece= extraMazePiece.replaceAll("[^NSEW]", "");
+
+	    if (tileDirections.size() == 4) {
+	        System.out.println("Cross tile (NSEW) remains the same after rotation.");
+	        // NSEW has no change after rotation; no action needed
+	    } else if (tileDirections.size() == 3) {
+	        // Three-direction tile rotates between NSE, ESW, NSW, and NEW
+	        switch (piece) {
+	            case "NSE":
+	                extraMazePiece = "EWS";
+	                break;
+	            case "EWS":
+	                extraMazePiece = "NSW";
+	                break;
+	            case "NSW":
+	                extraMazePiece = "NEW";
+	                break;
+	            case "NEW":
+	                extraMazePiece = "NSE";
+	                break;
+	        }
+	        System.out.println("Three-direction tile rotated to: " + extraMazePiece);
+	    } else if (tileDirections.size() == 2) {
+	        // Determine if it's a straight tile (NS, EW) or a corner tile (NE, SE, SW, NW)
+	        if (tileDirections.contains('N') && tileDirections.contains('S') || 
+	            tileDirections.contains('W') && tileDirections.contains('E')) {
+	            // Straight tile rotates between NS and EW
+	        	piece = piece.equals("NS") ? "EW" : "NS";
+	            System.out.println("Straight two-direction tile rotated to: " + piece);
+	        } else {
+	            // Corner tile rotates between NE, SE, SW, NW
+	            switch (piece) {
+	                case "NE":
+	                	piece = "SE";
+	                    break;
+	                case "SE":
+	                	piece = "SW";
+	                    break;
+	                case "SW":
+	                	piece = "NW";
+	                    break;
+	                case "NW":
+	                	piece = "NE";
+	                    break;
+	            }
+	            
+	            System.out.println("Corner two-direction tile rotated to: " + piece);
+	        }
+	    }
+	    extraMazePiece = "Images/"+piece+".png";
+	    
+	    
+	}
 
 	private void shiftMaze(int i, int j) {
+		
+		System.out.println(extraMazePiece);
+		
+		
 		
 	}
 	
