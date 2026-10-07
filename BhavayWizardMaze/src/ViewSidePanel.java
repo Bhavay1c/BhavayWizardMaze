@@ -2,9 +2,6 @@
  * * The SidePanel class represents a user interface panel that displays game-related components
  * for the Wizard's Maze game, including spare tiles, player names, captured pieces, chat area,
  * and action buttons.
- * @author Bhavay Garg
- * @studentID 041102440
- * @professor Daniel Cormeir
  */
 import javax.swing.*;
 import java.awt.*;
