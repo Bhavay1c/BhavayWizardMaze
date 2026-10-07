@@ -2,10 +2,6 @@
  * The WizardMazeUI class is responsible for creating and displaying 
  * the user interface for the Wizard's Maze game. It handles the 
  * arrangement of components, including the maze and menu bar
- * 
- * @author Bhavay Garg
- * @studentID 041102440
- * @professor Daniel Cormeir
  */
 import javax.swing.JOptionPane;
 
