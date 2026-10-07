@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"MazeStructure"},{"p":"<Unnamed>","l":"SidePanel"},{"p":"<Unnamed>","l":"WizardMazeMain"},{"p":"<Unnamed>","l":"WizardMazeUI"}];updateSearchResults();
