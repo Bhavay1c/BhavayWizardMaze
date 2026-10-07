@@ -13,9 +13,6 @@ import javax.swing.JMenuItem;
  * 
  * Note: This version does not implement a splash screen, but it can be added in the future if required.
  * 
- * @author Bhavay
- * @studentID 041102440
- * @professor Daniel Cormeir
  */
 public class ControllerSingleDevice {
     private ViewWizardMazeUI view;
