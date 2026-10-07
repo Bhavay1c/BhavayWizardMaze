@@ -2,9 +2,6 @@
 /**
  * The Player class represents a player in the Wizard's Maze game,
  * encapsulating player attributes and behaviors.
- * @author Bhavay Garg
- * @studentID 041102440
- * @professor Daniel Cormeir
  */
 
 public class ModelPlayer {
